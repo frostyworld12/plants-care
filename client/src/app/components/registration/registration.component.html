@@ -1,0 +1,42 @@
+<div class="registration">
+  <div class="icon-container">
+    <i class="fa-brands fa-pagelines"></i>
+  </div>
+  <article class="slds-card">
+    <div class="slds-card__body slds-card__body_inner">
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="text-input-id-47">
+          <abbr class="slds-required" title="required">* </abbr>Login</label>
+        <div class="slds-form-element__control">
+          <input [(ngModel)]="userEmail" type="email" id="text-input-id-47" placeholder="Login" required class="slds-input" />
+        </div>
+      </div>
+
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="text-input-id-47">First Name</label>
+        <div class="slds-form-element__control">
+          <input [(ngModel)]="userFirstName" type="text" id="text-input-id-47" placeholder="First Name" required class="slds-input" />
+        </div>
+      </div>
+
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="text-input-id-47">
+          <abbr class="slds-required" title="required">* </abbr>Last Name</label>
+        <div class="slds-form-element__control">
+          <input [(ngModel)]="userLastName" type="text" id="text-input-id-47" placeholder="Last Name" required class="slds-input" />
+        </div>
+      </div>
+
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="text-input-id-47">
+          <abbr class="slds-required" title="required">* </abbr>Password</label>
+        <div class="slds-form-element__control">
+          <input [(ngModel)]="userPassword" type="password" id="text-input-id-47" placeholder="Password" required class="slds-input" />
+        </div>
+      </div>
+    </div>
+    <footer class="slds-card__footer">
+      <button class="slds-button slds-button_brand" (click)="createUser()">Log up</button>
+    </footer>
+  </article>
+</div>

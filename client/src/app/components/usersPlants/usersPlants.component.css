@@ -1,0 +1,31 @@
+.users-plants {
+  height: 100%;
+  /* padding: .5em 10em 10em 10em; */
+}
+
+.users-plants__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.slds-card__body {
+  height: 10em;
+}
+
+.slds-card {
+  margin: 1.5em;
+  width: 30em;
+}
+
+.card__container {
+  display: flex;
+  column-gap: 1em;
+}
+
+.plant-picture {
+  background-color: aquamarine;
+  border-radius: 50%;
+  width: 5em;
+  height: 5em;
+}

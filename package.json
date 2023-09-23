@@ -1,0 +1,33 @@
+{
+  "name": "plants-care",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "db": "nodemon db.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frostyworld12/plants-care.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frostyworld12/plants-care/issues"
+  },
+  "homepage": "https://github.com/frostyworld12/plants-care#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "sequelize-cli": "^6.6.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "*",
+    "mysql2": "*",
+    "nodemon": "*",
+    "sequelize": "*"
+  }
+}

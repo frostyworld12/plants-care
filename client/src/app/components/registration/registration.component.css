@@ -1,0 +1,33 @@
+.registration {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.fa-pagelines {
+  font-size: 4em;
+  color: #0176d34d;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3em;
+  border-radius: 50%;
+  padding: 1.5em;
+  box-shadow: 0 0 0px 5px #0176d34d, 0 0 0px 10px #0176d34d, 0 0 0px 15px #0176d34d;
+  width: 7em;
+  height: 7em;
+}
+
+.slds-card {
+  width: 350px;
+}
+
+.slds-card__body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}
