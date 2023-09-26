@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AppStorage } from "src/app/services/appStorage";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-test',
+  templateUrl: './test.component.html',
+  styleUrls: ['./test.component.css']
 })
-export class Home implements OnInit {
+export class Test implements OnInit {
   user: any = null;
 
   constructor(
@@ -18,13 +18,5 @@ export class Home implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.appStorage.getUser();
-    if (!this.user) {
-      this.toastr.error('User not found!');
-    }
-  }
-
-  navigateToPage(page: string): void {
-    this.router.navigate([page]);
   }
 }

@@ -15,6 +15,6 @@ export class MakeRequest {
   }
 
   public get(url: string, params: any): Observable<any> {
-    return this.http.get(url, params);
+    return this.http.get(url, {params: params});
   }
 }

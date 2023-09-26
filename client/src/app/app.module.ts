@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MakeRequest } from './services/makeRequest';
+import { AppStorage } from './services/appStorage';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { Login } from './components/login/login.component';
 import { Registration } from './components/registration/registration.component';
 import { Home } from './components/home/home.component';
-import { UsersPlants } from './components/usersPlants/usersPlants.component';
+import { Plants } from './components/plantsCatalog/plantsCatalog.component';
+import { Test } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { UsersPlants } from './components/usersPlants/usersPlants.component';
     Login,
     Registration,
     Home,
-    UsersPlants
+    Plants,
+    Test
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { UsersPlants } from './components/usersPlants/usersPlants.component';
     provideToastr(),
     provideAnimations(),
     MakeRequest,
+    AppStorage
   ],
   bootstrap: [AppComponent]
 })

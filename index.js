@@ -8,10 +8,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// const users = require('./app/routes/usersApi');
+const users = require('./server/routes/usersApi');
+const plants = require('./server/routes/plantsApi');
 
 app.use(bodyParser.json());
-// app.use('/users', users);
+app.use(bodyParser.urlencoded());
+
+app.use('/users', users);
+app.use('/plants', plants);
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');

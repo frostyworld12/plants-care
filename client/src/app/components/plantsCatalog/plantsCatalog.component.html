@@ -1,0 +1,144 @@
+<div class="plants">
+  <div *ngIf="user.userType !== 'User'" class="plants__header">
+    <button class="slds-button slds-button_brand" (click)="handlePlantWindow(true, 'Add')">Add Plant</button>
+  </div>
+  <div class="plants__container">
+    <div *ngFor="let plant of plants; index as i">
+      <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <h2 class="slds-card__header-title">
+              <span>Plant Name {{ plant.i }}</span>
+            </h2>
+          </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+          <div class="card__container">
+            <div class="plant-picture">
+              picture here
+            </div>
+            <div>
+              some description
+            </div>
+          </div>
+        </div>
+        <footer class="slds-card__footer">
+          <button class="slds-button slds-button_brand">View more</button>
+        </footer>
+      </article>
+    </div>
+  </div>
+  <div *ngIf="isPlantModalVisible">
+    <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" (click)="handlePlantWindow(false, 'View')">
+          <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+          </svg>
+          <span class="slds-assistive-text">Cancel and close</span>
+        </button>
+        <div class="slds-modal__header">
+          <h1 class="slds-modal__title slds-hyphenate">Modal header</h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium">
+          <div *ngIf="plantModalState === 'Add'">
+            <div class="upload-image-container slds-m-bottom_small">
+              <div class="image-container">
+                <img *ngIf="newPlantData.imageSrc" [src]="newPlantData.imageSrc">
+                <i *ngIf="!newPlantData.imageSrc" class="fa-regular fa-image"></i>
+              </div>
+              <div class="slds-form-element ">
+                <div class="slds-form-element__control">
+                  <div class="slds-file-selector slds-file-selector_files">
+                    <div id="plant-image" class="slds-file-selector__dropzone">
+                      <input
+                        type="file"
+                        class="slds-file-selector__input slds-assistive-text"
+                        accept="image/*" id="plant-image-input"
+                        (change)="handleFileUpload($event)"
+                        (click)="handleClearErrorState('plant-image')"
+                      />
+                      <label class="slds-file-selector__body" for="plant-image-input" id="file-selector-secondary">
+                        <span class="slds-file-selector__button slds-button slds-button_neutral">
+                          <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload"></use>
+                          </svg>Upload Files</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="slds-form-element__help" id="error-plant-image">Choose image.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="plant-name">
+                <abbr class="slds-required" title="required">* </abbr>Name
+              </label>
+              <div class="slds-form-element__control">
+                <input
+                  id="plant-name"
+                  [(ngModel)]="newPlantData.name"
+                  (click)="handleClearErrorState('plant-name')"
+                  class="slds-input"
+                  type="text"
+                  placeholder="Name…"
+                  required
+                />
+              </div>
+              <div class="slds-form-element__help" id="error-plant-name">Enter name.</div>
+            </div>
+
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="plant-origin">
+                <abbr class="slds-required" title="required">* </abbr>Origin
+              </label>
+              <div class="slds-form-element__control">
+                <input
+                  id="plant-origin"
+                  [(ngModel)]="newPlantData.origin"
+                  (click)="handleClearErrorState('plant-origin')"
+                  class="slds-input"
+                  type="text"
+                  placeholder="Origin…"
+                  required
+                />
+              </div>
+              <div class="slds-form-element__help" id="error-plant-origin">Enter origin.</div>
+            </div>
+
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="plant-description">
+                <abbr class="slds-required" title="required">* </abbr>Description
+              </label>
+              <div class="slds-form-element__control">
+                <textarea
+                  id="plant-description"
+                  [(ngModel)]="newPlantData.description"
+                  (click)="handleClearErrorState('plant-description')"
+                  class="slds-textarea"
+                  placeholder="Description…"
+                  required
+                ></textarea>
+              </div>
+              <div class="slds-form-element__help" id="error-plant-description">Enter description.</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="slds-modal__footer">
+          <button class="slds-button slds-button_neutral" (click)="handlePlantWindow(false, 'View')">Cancel</button>
+          <button class="slds-button slds-button_brand" (click)="handleCreatePlant()">Save</button>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+  </div>
+  <div class="spinner-container" *ngIf="isLoading">
+    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+      <span class="slds-assistive-text">Loading</span>
+      <div class="slds-spinner__dot-a"></div>
+      <div class="slds-spinner__dot-b"></div>
+    </div>
+  </div>
+</div>

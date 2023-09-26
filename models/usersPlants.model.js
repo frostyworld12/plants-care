@@ -1,5 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
   const UsersPlants = sequelize.define("UsersPlants", {
+    id: {
+      type: Sequelize.STRING,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true
+    }
   });
 
   UsersPlants.associate = (models) => {

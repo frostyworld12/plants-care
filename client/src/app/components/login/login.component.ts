@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastrService } from 'ngx-toastr';
-import { AppConsts } from "src/app/util/Consts";
-import { MakeRequest } from "src/app/services/makeRequest";
-import { Router } from '@angular/router';
+import { ToastrService }     from 'ngx-toastr';
+import { AppConsts }         from "src/app/util/Consts";
+import { MakeRequest }       from "src/app/services/makeRequest";
+import { AppStorage }        from "src/app/services/appStorage";
+import { Router }            from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class Login implements OnInit {
   constructor(
     private toastr: ToastrService,
     private request: MakeRequest,
+    private appStorage: AppStorage,
     private router: Router
   ) { }
 
@@ -29,10 +31,12 @@ export class Login implements OnInit {
       password: this.userPassword
     }
 
-    this.request.post(AppConsts.AUTH_USER, body, {})
+    this.request.get(AppConsts.AUTH_USER, body)
       .subscribe({
         next: (response) => {
-          console.log(response)
+          console.log(response);
+
+          this.appStorage.storeUser(response.user);
           this.router.navigate(['/app-home']);
         },
         error: (e) => {

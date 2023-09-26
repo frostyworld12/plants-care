@@ -26,6 +26,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "*",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "*",
     "nodemon": "*",
     "sequelize": "*"

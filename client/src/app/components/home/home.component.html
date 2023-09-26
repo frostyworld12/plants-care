@@ -1,7 +1,7 @@
 <div class="home">
   <div class="nav-container">
-    <div>
-      <div class="nav-item nav-item_user-catalog" (click)="navigateToPage('usersPlants')">
+    <div *ngIf="user.userType !== 'Admin'">
+      <div class="nav-item nav-item_user-catalog" (click)="navigateToPage('app-plants')">
         <i class="fa-solid fa-leaf fa-icon"></i>
       </div>
       <span class="nav-item__text">
@@ -9,14 +9,30 @@
       </span>
     </div>
     <div>
-      <div class="nav-item nav-item_catalog">
+      <div class="nav-item nav-item_catalog" (click)="navigateToPage('app-plants')">
         <i class="fa-solid fa-seedling fa-icon"></i>
       </div>
       <span class="nav-item__text">
         Catalog
       </span>
     </div>
-    <div>
+    <div *ngIf="user.userType === 'Admin'">
+      <div class="nav-item nav-item_users">
+        <i class="fa-solid fa-users fa-icon"></i>
+      </div>
+      <span class="nav-item__text">
+        Users
+      </span>
+    </div>
+    <div *ngIf="user.userType === 'Admin'">
+      <div class="nav-item nav-item_requests">
+        <i class="fa-solid fa-book fa-icon"></i>
+      </div>
+      <span class="nav-item__text">
+        Requests
+      </span>
+    </div>
+    <div *ngIf="user.userType !== 'Admin'">
       <div class="nav-item nav-item_user">
         <i class="fa-solid fa-user fa-icon"></i>
       </div>

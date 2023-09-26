@@ -53,6 +53,18 @@
   background-color: #96b6c5;
 }
 
+.nav-item_users {
+  box-shadow: 0 0 20px 0px #a1ccd1e8, 0 0 0 4px #a1ccd145;
+  color: #81b5bb;
+  background-color: #a1ccd1;
+}
+
+.nav-item_requests {
+  box-shadow: 0 0 20px 0px #a8a196e8, 0 0 0 4px #a8a19645;
+  color: #979085;
+  background-color: #a8a196;
+}
+
 .nav-item:hover {
   width: 15em;
   height: 15em;
