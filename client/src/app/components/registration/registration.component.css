@@ -8,18 +8,19 @@
 
 .fa-pagelines {
   font-size: 4em;
-  color: #0176d34d;
+  color: #37cb99;
 }
 
 .icon-container {
+  width: 5em;
+  height: 5em;
+  background-color: #85E6C5;
   display: flex;
   justify-content: center;
-  margin-bottom: 3em;
-  border-radius: 50%;
-  padding: 1.5em;
-  box-shadow: 0 0 0px 5px #0176d34d, 0 0 0px 10px #0176d34d, 0 0 0px 15px #0176d34d;
-  width: 7em;
-  height: 7em;
+  align-items: center;
+  border-radius: 1em;
+  margin-bottom: 2em;
+  box-shadow: 0 0 20px 0px #85E6C5e8, 0 0 0 4px #85E6C545;
 }
 
 .slds-card {
@@ -30,4 +31,10 @@
   display: flex;
   flex-direction: column;
   row-gap: 1em;
+}
+
+.form__link-login {
+  display: flex;
+  margin-top: 1em;
+  justify-content: center;
 }

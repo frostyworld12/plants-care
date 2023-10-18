@@ -19,9 +19,17 @@
           <input [(ngModel)]="userPassword" type="password" id="text-input-id-47" placeholder="Password" required class="slds-input" />
         </div>
       </div>
+
+      <div class="form__link form__link-password">
+        <a (click)="handleResetPassword()">Forgot password?</a>
+      </div>
+
     </div>
     <footer class="slds-card__footer">
       <button class="slds-button slds-button_brand" (click)="authUser()">Log in</button>
     </footer>
   </article>
+  <div class="form__link form__link-register">
+    <a (click)="handleRedirectToRegistration()">Not registered yet?</a>
+  </div>
 </div>

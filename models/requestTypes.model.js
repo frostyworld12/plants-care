@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const RequestTypes = sequelize.define("RequestTypes", {
+  const RequestType = sequelize.define("RequestType", {
     id: {
       type: Sequelize.STRING,
       defaultValue: Sequelize.UUIDV4,
@@ -10,9 +10,9 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
-  RequestTypes.associate = (models) => {
-    RequestTypes.hasMany(models.UsersRequests, { foreignKey: 'requestTypeId' });
+  RequestType.associate = (models) => {
+    RequestType.hasMany(models.UserRequest, { foreignKey: 'requestTypeId' });
   }
 
-  return RequestTypes;
+  return RequestType;
 };

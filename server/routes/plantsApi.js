@@ -2,23 +2,72 @@ const path = require('path');
 const db = require('../../models');
 const Op = db.Sequelize.Op;
 const router = require('express').Router();
-const multer  = require('multer');
+const multer = require('multer');
 
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.join(__dirname, '../../uploads'))
+      cb(null, path.join(__dirname, '../../client/src/assets'));
     },
     filename: (req, file, cb) => {
-      cb(null, file.originalname)
+      cb(null, file.originalname);
     }
   })
 });
-router.post('/createPlant', upload.single('plantImage'), async (req, res) => {
+router.post('/processPlant', upload.single('plantImage'), async (req, res) => {
   try {
+    const file = req.file;
+
     const body = req.body;
-    console.log(body.plantData);
-    console.log(JSON.parse(body.plantData));
+    const plantData = JSON.parse(body.plantData);
+    console.log(plantData);
+
+    let plantId;
+    await db.sequelize.transaction(async (transaction) => {
+      await db.sequelize.query('SET @newPlantId = null;', {transaction});
+      await db.sequelize.query('CALL createPlant(@newPlantId, :plantId, :plantName, :plantOrigin, :plantDescription, :plantImage);', {
+        transaction,
+        replacements: {
+          plantId: plantData.id || null,
+          plantName: plantData.name,
+          plantOrigin: plantData.origin,
+          plantDescription: plantData.description,
+          plantImage: file ? `/assets/${file.originalname}` : plantData.imageUrl
+        },
+      });
+      const newPlantId = await db.sequelize.query(`SELECT @newPlantId as 'plantId';`, {
+        transaction,
+        type: db.Sequelize.QueryTypes.SELECT,
+        raw: true,
+        plain: true
+      });
+
+      plantId = newPlantId.plantId;
+    });
+
+    if (!plantId) {
+      throw new Error('Could not process plant');
+    }
+
+    if (plantData.plantCare) {
+      await db.sequelize.query('CALL createPlantCare(:plantCareId, :plantId, :plantCareData)', {
+        replacements: {
+          plantCareId: plantData.plantCare.id || null,
+          plantId: plantId,
+          plantCareData: plantData.plantCare ? JSON.stringify(plantData.plantCare.operations) : ''
+        }
+      });
+    }
+
+    if (plantData.plantType) {
+      await db.sequelize.query('CALL createPlantType(:plantTypeId, :plantId, :plantTypeName)', {
+        replacements: {
+          plantTypeId: plantData.plantType.id || null,
+          plantId: plantId,
+          plantTypeName: plantData.plantType.name
+        }
+      });
+    }
 
     return res.status(200).json({
       code: 200,
@@ -31,5 +80,69 @@ router.post('/createPlant', upload.single('plantImage'), async (req, res) => {
     });
   }
 });
+
+router.get('/getPlantsList', async (req, res) => {
+  try {
+    const params = req.query;
+
+    let queryParams = '';
+    if (params.name) {
+      queryParams = ` WHERE Plants.name LIKE '%${params.name}%' `;
+    }
+
+    const plants = await db.sequelize.query(
+      `SELECT Plants.id, Plants.name, Plants.description, Plants.origin, Plants.imageUrl, Plants.createdAt as 'createdAt',
+        PlantTypes.id as 'plantTypeId', PlantTypes.name as 'plantType',
+        PlantCares.id as 'plantCareId', PlantCares.operations as 'plantCareOperations'
+      FROM Plants
+      LEFT JOIN PlantTypes ON Plants.plantTypeId = PlantTypes.id
+      LEFT JOIN PlantCares ON Plants.plantCareId = PlantCares.id
+      ${queryParams}
+      ORDER BY createdAt DESC`,
+      {
+        type: db.Sequelize.QueryTypes.SELECT,
+        raw: true
+      }
+    );
+
+    const plantsTypes = await db.PlantType.findAll({
+      attributes: ['id', 'name'],
+      raw: true
+    });
+
+    return res.status(200).json({
+      code: 200,
+      plants: plants,
+      plantsTypes: plantsTypes
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      code: 400,
+      message: error.message || error
+    });
+  }
+});
+
+router.delete('/deletePlant', async (req, res) => {
+  try {
+    const plantId = req.query.plantId;
+
+    await db.Plant.destroy({
+      where: {
+        id: plantId
+      }
+    });
+
+    return res.status(200).json({
+      code: 200,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      code: 400,
+      message: error.message || error
+    });
+  }
+})
 
 module.exports = router;

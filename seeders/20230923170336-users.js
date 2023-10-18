@@ -2,14 +2,14 @@ const db = require('../models');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const userTypes = await db.UserTypes.findAll({raw: true});
+    const userTypes = await db.UserType.findAll({raw: true});
 
     const userTypePerId = userTypes.reduce((userTypePerId, type) => {
       userTypePerId[type.name] = type.id;
       return userTypePerId;
     }, {});
 
-    await db.Users.bulkCreate([
+    await db.User.bulkCreate([
       {
         email: 'admin_user@gmail.com',
         password: 'admin',
@@ -28,6 +28,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await db.Users.bulkDelete('UserTypes');
+    await db.User.bulkDelete('UserTypes');
   }
 };

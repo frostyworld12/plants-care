@@ -17,11 +17,11 @@
       </span>
     </div>
     <div *ngIf="user.userType === 'Admin'">
-      <div class="nav-item nav-item_users">
+      <div class="nav-item nav-item_users" (click)="navigateToPage('app-managment')">
         <i class="fa-solid fa-users fa-icon"></i>
       </div>
       <span class="nav-item__text">
-        Users
+        Managment
       </span>
     </div>
     <div *ngIf="user.userType === 'Admin'">

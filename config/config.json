@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "SafetyLika07SafetyKlepan",
-    "database": "plants-care",
+    "database": "plantscare",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

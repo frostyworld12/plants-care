@@ -25,6 +25,20 @@ export class Login implements OnInit {
     private router: Router
   ) { }
 
+
+  handleRedirectToRegistration(): void {
+    this.router.navigate(['/app-registration']);
+  }
+
+  handleResetPassword(): void {
+    this.resetPassword();
+  }
+
+
+
+
+  /* <============================ REQUESTS ==============================> */
+
   authUser(): void {
     const body = {
       email: this.userEmail,
@@ -32,17 +46,35 @@ export class Login implements OnInit {
     }
 
     this.request.get(AppConsts.AUTH_USER, body)
-      .subscribe({
-        next: (response) => {
-          console.log(response);
+    .subscribe({
+      next: (response) => {
+        console.log(response);
 
-          this.appStorage.storeUser(response.user);
-          this.router.navigate(['/app-home']);
-        },
-        error: (e) => {
-          this.toastr.error(e.error.message);
-          console.log(e.message)
-        },
-      });
+        this.appStorage.storeUser(response.user);
+        this.router.navigate(['/app-home']);
+      },
+      error: (e) => {
+        this.toastr.error(e.error.message);
+        console.log(e.message)
+      },
+    });
+  }
+
+  resetPassword(): void {
+    const body = {
+      email: this.userEmail,
+      password: this.userPassword
+    }
+
+    this.request.post(AppConsts.RESET_PASSWORD, body, {})
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (e) => {
+        this.toastr.error(e.error.message);
+        console.log(e.message)
+      },
+    });
   }
 }

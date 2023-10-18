@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const UsersRequests = sequelize.define("UsersRequests", {
+  const UserRequest = sequelize.define("UserRequest", {
     id: {
       type: Sequelize.STRING,
       defaultValue: Sequelize.UUIDV4,
@@ -10,11 +10,11 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
-  UsersRequests.associate = (models) => {
-    UsersRequests.belongsTo(models.Users, { foreignKey: 'userId' });
-    UsersRequests.belongsTo(models.Plants, { foreignKey: 'plantId' });
-    UsersRequests.hasOne(models.RequestTypes, { foreignKey: 'requestTypeId' });
+  UserRequest.associate = (models) => {
+    UserRequest.belongsTo(models.User, { foreignKey: 'userId' });
+    UserRequest.belongsTo(models.Plant, { foreignKey: 'plantId' });
+    UserRequest.hasOne(models.RequestType, { foreignKey: 'requestTypeId' });
   }
 
-  return UsersRequests;
+  return UserRequest;
 };

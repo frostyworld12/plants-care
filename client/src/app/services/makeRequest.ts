@@ -17,4 +17,8 @@ export class MakeRequest {
   public get(url: string, params: any): Observable<any> {
     return this.http.get(url, {params: params});
   }
+
+  public delete(url: string, params: any): Observable<any> {
+    return this.http.delete(url, {params: params});
+  }
 }

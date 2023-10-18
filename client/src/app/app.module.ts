@@ -15,7 +15,8 @@ import { Login } from './components/login/login.component';
 import { Registration } from './components/registration/registration.component';
 import { Home } from './components/home/home.component';
 import { Plants } from './components/plantsCatalog/plantsCatalog.component';
-import { Test } from './components/test/test.component';
+import { Managment } from './components/managment/managment.component';
+import { Combobox }  from "./ui/combobox/combobox.component";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { Test } from './components/test/test.component';
     Registration,
     Home,
     Plants,
-    Test
+    Managment,
+    Combobox
   ],
   imports: [
     BrowserModule,

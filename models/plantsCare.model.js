@@ -1,21 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
-  const PlantsCare = sequelize.define("PlantsCare", {
+  const PlantCare = sequelize.define("PlantCare", {
     id: {
       type: Sequelize.STRING,
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true
     },
-    name: {
-      type: Sequelize.STRING
-    },
-    frequency: {
-      type: Sequelize.STRING
+    operations: {
+      type: Sequelize.TEXT
     }
   });
 
-  PlantsCare.associate = (models) => {
-    PlantsCare.hasMany(models.Plants, { foreignKey: 'plantsCareId' });
+  PlantCare.associate = (models) => {
+    PlantCare.hasMany(models.Plant, { foreignKey: 'plantCareId' });
   }
 
-  return PlantsCare;
+  return PlantCare;
 };

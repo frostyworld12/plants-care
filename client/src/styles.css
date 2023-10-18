@@ -2,7 +2,6 @@
 @import 'ngx-toastr/toastr';
 
 html, body {
-  background-color: white !important;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -10,5 +9,85 @@ html, body {
 }
 
 .slds-button {
+  border-radius: 2em !important;
   transition: all ease .3s !important;
+}
+
+.slds-button_outline-brand,
+.slds-button_brand {
+  border: 1px solid #0162b2 !important;
+}
+
+.slds-button_outline-brand:hover {
+  background-color: #0176d3 !important;
+  color: white !important;
+}
+
+.slds-card {
+  display: flex !important;
+  flex-direction: column !important;
+  box-shadow: 0 0 20px 0 #7777772e !important;
+  border: none !important;
+  background-color: #ffffffa6 !important;
+  border-radius: 1em !important;
+}
+
+.slds-card__footer {
+  border-top: 1px solid #0000000f !important;
+}
+
+.slds-input,
+.slds-textarea
+{
+  transition: all ease .3s !important;
+  border: 1px solid #00000014 !important;
+  border-radius: 1em !important;
+}
+
+.slds-input:active,
+.slds-input:focus,
+.slds-textarea:active,
+.slds-textarea:focus {
+  box-shadow: 0 0 5px 0 #0176d336 !important;
+  border: 1px solid #0176d333 !important;
+}
+
+.slds-modal__header {
+  border-top-left-radius: 1em !important;
+  border-top-right-radius: 1em !important;
+}
+
+.slds-modal__container > .slds-modal__content:last-child {
+  border-bottom-right-radius: 1em !important;
+  border-bottom-left-radius: 1em !important;
+}
+
+.slds-modal__footer {
+  border-bottom-right-radius: 1em !important;
+  border-bottom-left-radius: 1em !important;
+}
+
+.slds-dropdown {
+  border-radius: 1em !important;
+  box-shadow: 0 5px 10px 0 #7979792b !important;
+  margin: 0.3em 0 !important;
+  background-color: #ffffff7a !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.slds-listbox__option {
+  margin: 0 0.5em !important;
+  border-radius: 1em !important;
+  transition: all ease .3s;
+}
+
+.slds-listbox__option:hover {
+  background-color: #0176d312 !important;
+  margin: 0 0.5em !important;
+  border-radius: 1em !important;
+}
+
+.slds-has-error {
+  box-shadow: 0 0 5px 0 #ea001e36 !important;
+  border: 1px solid #ea001e33 !important;
 }

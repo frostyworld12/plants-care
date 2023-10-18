@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const UsersPlants = sequelize.define("UsersPlants", {
+  const UserPlant = sequelize.define("UserPlant", {
     id: {
       type: Sequelize.STRING,
       defaultValue: Sequelize.UUIDV4,
@@ -7,10 +7,10 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
-  UsersPlants.associate = (models) => {
-    UsersPlants.belongsTo(models.Plants, { foreignKey: 'plantId' });
-    UsersPlants.belongsTo(models.Users, { foreignKey: 'userId' });
+  UserPlant.associate = (models) => {
+    UserPlant.belongsTo(models.Plant, { foreignKey: 'plantId' });
+    UserPlant.belongsTo(models.User, { foreignKey: 'userId' });
   }
 
-  return UsersPlants;
+  return UserPlant;
 };

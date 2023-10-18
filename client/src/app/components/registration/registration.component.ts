@@ -25,6 +25,14 @@ export class Registration implements OnInit {
 
   }
 
+
+  handleRedirectToLogin(): void {
+    this.router.navigate(['/app-login']);
+  }
+
+
+  /* <============================ REQUESTS ==============================> */
+
   createUser(): void {
     const body = {
       email: this.userEmail,
