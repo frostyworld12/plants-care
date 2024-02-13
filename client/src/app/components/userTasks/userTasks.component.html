@@ -1,0 +1,56 @@
+<div class="calendar">
+  <div>
+    <div class="month-name__container">
+      <div class="month-name__control" (click)="handleChangeMonth('prev')">
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
+
+      <div class="month-name__title">
+        {{ currentMonthLabel }}
+        <div>
+          {{ currentYear }}
+        </div>
+      </div>
+
+      <div class="month-name__control" (click)="handleChangeMonth('next')">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </div>
+    <div class="calendar__month">
+      <ng-container *ngFor="let week of month">
+        <div class="calendar__week">
+          <ng-container *ngFor="let day of week">
+            <div>
+              <div class="calendar-week__day" (click)="handleDayClick(day)">
+                <span class="calendar-week__day__number">
+                  {{ day.day }}
+                </span>
+
+                <ng-container *ngIf="day.tasks">
+                  <div class="day__tasks-indicator">
+                    <span *ngFor="let task of day.tasks">
+                      <i class="fa-solid fa-circle"></i>
+                    </span>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="back-icons">
+      <i class="fa-brands fa-pagelines"></i>
+      <i class="fa-brands fa-pagelines"></i>
+      <i class="fa-brands fa-pagelines"></i>
+    </div>
+  </div>
+
+  <ng-container *ngIf="isTasksDescrptionOpen">
+    <user-tasks-description
+      [tasksIds]="selectedTasks"
+      (onModalClose)="handleOpenTasksDescription()"
+    ></user-tasks-description>
+  </ng-container>
+</div>

@@ -1,11 +1,51 @@
+const path = require('path');
 const db = require('../../models');
 const Op = db.Sequelize.Op;
 const router = require('express').Router();
+const multer = require('multer');
 
 const sendEmail = require('../helpers/sendEmails');
 
 router.post('/createUser', async (req, res) => {
+  try {
+    const user = req.body;
 
+    let errorMessage;
+    await db.sequelize.transaction(async (transaction) => {
+      await db.sequelize.query(`SET @errorText = '';`, {transaction});
+      await db.sequelize.query('CALL createUser(@errorText, :firstName, :lastName, :email, :password);', {
+        transaction,
+        replacements: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          password: user.password
+        },
+      });
+      const errorText = await db.sequelize.query(`SELECT @errorText as 'error';`, {
+        transaction,
+        type: db.Sequelize.QueryTypes.SELECT,
+        raw: true,
+        plain: true
+      });
+      errorMessage = errorText.error;
+    });
+
+    if (errorMessage) {
+      throw new Error(errorMessage);
+    }
+
+    return res.status(200).json({
+      code: 200
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      code: 400,
+      message: error.message || error
+    });
+  }
 });
 
 router.get('/authUser', async (req, res) => {
@@ -16,7 +56,7 @@ router.get('/authUser', async (req, res) => {
     }
 
     const user = await db.sequelize.query(
-      `SELECT Users.id, Users.email, Users.firstName, Users.lastName, UserTypes.name as 'userType' FROM Users ` +
+      `SELECT Users.id, Users.email, Users.firstName, Users.lastName, Users.imageUrl, UserTypes.name as 'userType' FROM Users ` +
       `INNER JOIN UserTypes ON Users.userTypeId = UserTypes.id ` +
       `WHERE Users.email = '${userInfo.email}' AND Users.password = '${userInfo.password}' LIMIT 1`,
       {
@@ -45,15 +85,18 @@ router.post('/processUser', async (req, res) => {
   try {
     const user = req.body.userData;
 
-    console.log(user);
+    if (!user.firstName || !user.lastName || !user.roleId) {
+      throw new Error('Not enough info provided!');
+    }
 
-    await db.sequelize.query('CALL processUser(:userId, :firstName, :lastName, :userTypeId, :password)', {
+    await db.sequelize.query('CALL processUser(:userId, :firstName, :lastName, :email, :userTypeId, :isDelete)', {
       replacements: {
         userId: user.id || null,
         firstName: user.firstName,
+        email: user.email,
         lastName: user.lastName,
-        userTypeId: '',
-        password: ''
+        userTypeId: user.roleId,
+        isDelete: !!user.isDelete
       }
     });
 
@@ -101,6 +144,65 @@ router.post('/resetPassword', async (req, res) => {
 
     await sendEmail.sendEmail('frostyworld12@gmail.com', 'Reset password', content);
 
+    res.status(200).json({
+      code: 200
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      code: 400,
+      message: error.message || error
+    });
+  }
+});
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, path.join(__dirname, '../../client/src/assets'));
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    }
+  })
+});
+
+router.post('/updateUser', upload.single('avatar'), async (req, res) => {
+  try {
+    const file = req.file;
+
+    const body = req.body;
+    const userData = JSON.parse(body.userData);
+
+    if (!userData.id || !userData.firstName || !userData.lastName) {
+      throw new Error('Not enoigh info provided!');
+    }
+
+    const user = await db.User.findOne({
+      where: {
+        id: userData.id
+      },
+      raw: true
+    });
+
+    if (!user) {
+      throw new Error('Could not find such user!');
+    }
+
+    const userToUpdate = {
+      firstName: userData.firstName,
+      lastName: userData.lastName
+    };
+
+    if (file) {
+      userToUpdate.imageUrl = `/assets/${file.originalname}`;
+    }
+
+    await db.User.update(userToUpdate, {
+      where: {
+        id: userData.id
+      }
+    });
 
     res.status(200).json({
       code: 200

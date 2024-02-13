@@ -1,0 +1,191 @@
+<div class="users-table">
+  <div class="users-table__row users-table__header">
+    <ng-container *ngIf="!isUserCreateMode">
+      <div *ngFor="let fieldLabel of objectValues(usersTableCellsConfig)">
+        {{ fieldLabel }}
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="isUserCreateMode">
+      <div class="slds-form-element__control">
+        <input
+          id="firstNameInput"
+          class="slds-input"
+          type="text"
+          [(ngModel)]="currentUser.firstName"
+          placeholder="First Name"
+          required
+        />
+      </div>
+
+      <div class="slds-form-element__control">
+        <input
+          id="lastNameInput"
+          class="slds-input"
+          type="text"
+          [(ngModel)]="currentUser.lastName"
+          placeholder="Last Name"
+          required
+        />
+      </div>
+
+      <div class="slds-form-element__control">
+        <input
+          id="emailInput"
+          class="slds-input"
+          type="email"
+          [(ngModel)]="currentUser.email"
+          placeholder="Email"
+          required
+        />
+      </div>
+
+      <combobox
+        [items]="userTypes"
+        [inputId]="'roleInput'"
+        [selectedOption]="{name: currentUser.role, id: currentUser.roleId}"
+        (onOptionSelect)="handleOptionSelect($event)"
+      ></combobox>
+
+      <div>
+        <button
+          class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border"
+          title="Save"
+          (click)="handleProcessUser()"
+        >
+          <svg class="slds-button__icon" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+          </svg>
+        </button>
+
+        <button
+          class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border"
+          title="Cancel"
+          (click)="handleUserEdit({}, false)"
+        >
+          <svg class="slds-button__icon" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+          </svg>
+        </button>
+      </div>
+    </ng-container>
+
+    <div *ngIf="!isUserCreateMode" class="new-user-btn__container">
+      <div class="new-user-btn" (click)="handleUserCreate()">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="users-table__body">
+    <ng-container *ngFor="let user of users">
+      <div
+        *ngIf="user.id !== currentUser.id"
+        class="users-table__row"
+      >
+        <div *ngFor="let field of objectKeys(usersTableCellsConfig)">
+          <span *ngIf="field !== 'role'">
+            {{ user[field] }}
+          </span>
+
+          <div class="role__container" *ngIf="field === 'role'">
+            <span>{{ user[field] }}</span>
+            <i
+              [ngClass]="{
+                'fa-toolbox': user[field] === 'Admin',
+                'fa-newspaper': user[field] === 'Content Manager',
+                'fa-user': user[field] === 'User'
+              }"
+              class="fa-solid"
+            ></i>
+          </div>
+
+        </div>
+        <div>
+          <button
+            *ngIf="!isUserEditMode"
+            class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border"
+            title="Edit"
+            (click)="handleUserEdit(user, true)"
+          >
+            <svg class="slds-button__icon" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit_gpt"></use>
+            </svg>
+          </button>
+          <button
+            *ngIf="!isUserEditMode"
+            class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border button_icon-danger"
+            title="Delete"
+            (click)="handleDeleteUser(user)"
+          >
+            <svg class="slds-button__icon" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#delete"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="isUserEditMode && user.id === currentUser.id" class="users-table__row">
+        <div *ngFor="let field of objectKeys(usersTableCellsConfig)">
+          <div class="slds-form-element__control">
+            <input
+              *ngIf="field !== 'role' && field !== 'email'"
+              id="{{ field + 'Input' }}"
+              class="slds-input "
+              type="text"
+              [(ngModel)]="currentUser[field]"
+              required
+            />
+
+            <span *ngIf="field === 'email'">
+              {{ currentUser[field] }}
+            </span>
+
+            <combobox
+              *ngIf="field === 'role'"
+              [items]="userTypes"
+              [inputId]="field + 'Input'"
+              [selectedOption]="{name: currentUser.role, id: currentUser.roleId}"
+              (onOptionSelect)="handleOptionSelect($event)"
+            ></combobox>
+          </div>
+        </div>
+        <div>
+          <button
+            class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border"
+            title="Save"
+            (click)="handleProcessUser()"
+          >
+            <svg class="slds-button__icon" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+            </svg>
+          </button>
+          <button
+            class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border"
+            title="Cancel"
+            (click)="handleUserEdit({}, false)"
+          >
+            <svg class="slds-button__icon" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<confirmation-dialog
+  *ngIf="isConfirmationOpen"
+  [message]="'Are you sure you want to delete user?'"
+  [submitButtonText]="'Yes'"
+  (onConfirmation)="handleConfirm($event)"
+></confirmation-dialog>
+
+<div class="spinner__container" *ngIf="isLoading">
+  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>

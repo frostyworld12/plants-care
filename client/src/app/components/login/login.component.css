@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Round&display=swap');
+
 .login {
   height: 100%;
   display: flex;
@@ -6,21 +8,57 @@
   flex-direction: column;
 }
 
-.fa-pagelines {
-  font-size: 4em;
-  color: #37cb99;
+.logo__container {
+  position: relative;
+  margin-bottom: 4em;
 }
 
-.icon-container {
-  width: 5em;
-  height: 5em;
-  background-color: #85E6C5;
+.logo__container > div {
+  width: 6em;
+  height: 6em;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 1em;
-  margin-bottom: 2em;
-  box-shadow: 0 0 20px 0px #85E6C5e8, 0 0 0 4px #85E6C545;
+  background-color: #ffffff3b;
+  border-radius: 2em;
+  border: 1px solid #ffffff4a;
+  backdrop-filter: blur(5px);
+}
+
+.fa-logo {
+  position: absolute;
+  z-index: -1;
+  font-size: 60px;
+}
+
+.logo__container i:nth-child(2) {
+  transform: rotate(226deg);
+  bottom: -17px;
+  left: -24px;
+  background: linear-gradient(to right, #36ef8a 0%, #009976 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo__container i:nth-child(3) {
+  transform: rotate(380deg);
+  top: -28px;
+  left: 40px;
+  background: linear-gradient(to right, #36ef8a 0%, #009976 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo__container > div > span {
+  font-size: 2em;
+  background: linear-gradient(to bottom right, #57bf74 0%, #008d6c 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: "Nova Round", sans-serif;
 }
 
 .slds-card {

@@ -9,38 +9,120 @@ html, body {
 }
 
 .slds-button {
-  border-radius: 2em !important;
+  height: 2.7em !important;
+  border-radius: 1em !important;
   transition: all ease .3s !important;
 }
 
-.slds-button_outline-brand,
-.slds-button_brand {
-  border: 1px solid #0162b2 !important;
+.slds-button_icon {
+  height: 2.5em !important;
 }
 
-.slds-button_outline-brand:hover {
-  background-color: #0176d3 !important;
+.button_icon-small-border {
+  border-radius: .85em !important;
+}
+
+.slds-button_outline-brand {
+  background: linear-gradient(233deg, #f0f3ff 0%, #f2f5ff 100%) !important;
+  color: #7c94f7 !important;
+  border-radius: 1em !important;
+  box-shadow: 0 0 15px 0 #d5dffd !important;
+  background-color: #ffffff63 !important;
+  border: 1px solid #eaefff !important;
+}
+
+.slds-button_neutral {
+  border: 1px solid #d0d9ff !important;
+  color: #708dff !important;
+}
+
+.slds-button_neutral:hover,
+.slds-button_neutral:focus,
+.slds-button_neutral:active {
+  background-color: white;
+  border-color: #8ea5ff !important;
+  box-shadow: none !important;
+}
+
+.slds-button_icon-inverse {
+  background: transparent !important;
+  box-shadow: none !important;
   color: white !important;
+  border: none !important;
+}
+
+.slds-button_outline-brand:focus,
+.slds-button_outline-brand:hover {
+  border: 1px solid #d7e0fd !important;
+}
+
+.slds-button_icon {
+  border: 1px solid #e3ecfd !important;
+  color: #7c94f7 !important;
+}
+
+.slds-button_icon:hover,
+.slds-button_icon:focus {
+  border: 1px solid #d7e0fd !important;
+  box-shadow: none !important;
+}
+
+.button_icon-danger {
+  border: 1px solid #ffe9ec !important;
+  color: #f76876 !important;
+}
+
+.button_icon-danger:hover,
+.button_icon-danger:focus {
+  border: 1px solid #ffd3d8 !important;
+  box-shadow: none !important;
+}
+
+.slds-button_icon-inverse {
+  color: white !important;
+  border: none !important;
+}
+
+.slds-button_icon-inverse:hover,
+.slds-button_icon-inverse:focus {
+  color: white !important;
+  border: none !important;
+}
+
+.slds-button_brand {
+  color: white !important;
+  border: 1px solid #839cff !important;
+  box-shadow: 0 0 15px 0 #7c96ff !important;
+  background-color: #708dff !important;
+}
+
+.slds-button_brand:hover,
+.slds-button_brand:focus {
+  background-color: #5f7fe9 !important;
+}
+
+.button_bare-color {
+  fill: #7c94f7 !important;
 }
 
 .slds-card {
   display: flex !important;
   flex-direction: column !important;
-  box-shadow: 0 0 20px 0 #7777772e !important;
-  border: none !important;
-  background-color: #ffffffa6 !important;
-  border-radius: 1em !important;
+  box-shadow: 0 0 25px 0 #d8e3f7 !important;
+  border-radius: 2em !important;
+  background-color: #ffffff61 !important;
+  border: 2px solid #f0f5fd !important;
 }
 
 .slds-card__footer {
-  border-top: 1px solid #0000000f !important;
+  border-top: none !important;
 }
 
 .slds-input,
 .slds-textarea
 {
   transition: all ease .3s !important;
-  border: 1px solid #00000014 !important;
+  border: 1px solid #eff2ff !important;
   border-radius: 1em !important;
 }
 
@@ -48,31 +130,36 @@ html, body {
 .slds-input:focus,
 .slds-textarea:active,
 .slds-textarea:focus {
-  box-shadow: 0 0 5px 0 #0176d336 !important;
-  border: 1px solid #0176d333 !important;
+  box-shadow: none !important;
+  border: 1px solid #dce3ff !important;
 }
 
 .slds-modal__header {
-  border-top-left-radius: 1em !important;
-  border-top-right-radius: 1em !important;
+  border-top-left-radius: 2em !important;
+  border-top-right-radius: 2em !important;
+  border: none !important;
 }
 
 .slds-modal__container > .slds-modal__content:last-child {
-  border-bottom-right-radius: 1em !important;
-  border-bottom-left-radius: 1em !important;
+  border-bottom-right-radius: 2em !important;
+  border-bottom-left-radius: 2em !important;
 }
 
 .slds-modal__footer {
-  border-bottom-right-radius: 1em !important;
-  border-bottom-left-radius: 1em !important;
+  border-bottom-right-radius: 2em !important;
+  border-bottom-left-radius: 2em !important;
+  border: none !important;
+  background-color: #ffffff !important;
 }
 
 .slds-dropdown {
-  border-radius: 1em !important;
-  box-shadow: 0 5px 10px 0 #7979792b !important;
+  border-radius: 1.5em !important;
+  box-shadow: 0 5px 10px 0 #f2f6ff !important;
   margin: 0.3em 0 !important;
   background-color: #ffffff7a !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   backdrop-filter: blur(10px) !important;
+  border-color: #f8faff !important;
 }
 
 .slds-listbox__option {
@@ -82,7 +169,7 @@ html, body {
 }
 
 .slds-listbox__option:hover {
-  background-color: #0176d312 !important;
+  background-color: #eff2ff !important;
   margin: 0 0.5em !important;
   border-radius: 1em !important;
 }
@@ -90,4 +177,107 @@ html, body {
 .slds-has-error {
   box-shadow: 0 0 5px 0 #ea001e36 !important;
   border: 1px solid #ea001e33 !important;
+}
+
+.slds-backdrop {
+  backdrop-filter: blur(10px);
+}
+
+a {
+  color: #708dff !important;
+  text-decoration: none !important;
+  transition: all ease .5s !important;
+}
+
+.slds-file-selector__dropzone {
+  padding: .5rem !important;
+  border-color: #eff2ff !important;
+  border-radius: 2em !important;
+  color: #444444 !important;
+}
+
+.slds-file-selector__body {
+  cursor: pointer;
+}
+
+.checkbox__container {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox__container > input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
+.checkbox__container > span:last-child {
+  margin-left: 20px;
+}
+
+.checkbox__container_large > span:last-child {
+  margin-left: 30px;
+}
+
+.checkbox__checkmark {
+  border: 1px solid #d0d9ff;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  border-radius: 3px;
+  bottom: 1px;
+  left: 0;
+  transition: all ease .5s;
+}
+
+.checkbox__checkmark_large {
+  border: 2px solid #d0d9ff;
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  bottom: 0;
+}
+
+.checkbox__container:hover input ~ .checkbox__checkmark {
+  border: 1px solid #8ea5ff;
+}
+
+.checkbox__container:hover input ~ .checkbox__checkmark_large {
+  border: 2px solid #8ea5ff;
+}
+
+.checkbox__container input:checked ~ .checkbox__checkmark {
+  background-color: #ebefff;
+}
+
+.checkbox__checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox__container input:checked ~ .checkbox__checkmark:after {
+  display: block;
+}
+
+.checkbox__container .checkbox__checkmark:after {
+  left: 3px;
+  top: 1px;
+  width: 6px;
+  height: 8px;
+  border: solid #8aa0fd;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox__container .checkbox__checkmark_large:after {
+  left: 6px;
+  top: 0px;
+  width: 9px;
+  height: 17px;
+  border: solid #8aa0fd;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }

@@ -25,6 +25,10 @@ export class Home implements OnInit {
   }
 
   navigateToPage(page: string): void {
-    this.router.navigate([page]);
+    if (page === 'app-my-plants') {
+      this.router.navigate([page, { state: 'User' }]);
+    } else {
+      this.router.navigate([page]);
+    }
   }
 }

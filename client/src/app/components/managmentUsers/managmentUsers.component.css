@@ -1,0 +1,136 @@
+.users-table {
+  height: 100%;
+  box-shadow: 0 0 25px 0 #d8e3f7;
+  background-color: #f4f8ff;
+  border-radius: 2em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.users-table__header {
+  font-weight: bold;
+  background-color: #ebf1fd;
+  border-radius: 1.3em;
+  padding: 1em;
+  box-shadow: 0 0 10px 0px #d8e3f7;
+  color: #5c5c5c;
+  position: relative;
+}
+
+.users-table__body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: .5em;
+  margin-top: 1.5em;
+  overflow: auto;
+  padding: .3em;
+}
+
+.users-table__body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.users-table__body::-webkit-scrollbar-track {
+  border-radius: 1em;
+  margin-block: .3em;
+}
+
+.users-table__body::-webkit-scrollbar-thumb {
+  background: #0000001c;
+  border-radius: 1em;
+}
+
+.users-table__body::-webkit-scrollbar-thumb:hover {
+  background: #00000033;
+}
+
+.users-table__row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 100px;
+  align-items: center;
+  column-gap: .3em;
+}
+
+.users-table__body > div {
+  border-radius: 1em;
+  padding: 1em;
+  box-shadow: 0 0 0px 1px #ecf3ff;
+  background-color: #f7faff;
+  column-gap: 1em;
+}
+
+.users-table__row_role {
+  border-radius: 1em;
+  padding: .4em 1em;
+}
+
+.role__container {
+  position: relative;
+  line-height: 2em;
+  z-index: 1;
+  margin-left: 1em;
+}
+
+.role__container > span {
+  background-color: #eef4ff94;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  width: auto;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid #eef4ff;
+  border-radius: 1em;
+  padding: 0 .5em;
+}
+
+.role__container > i {
+  position: absolute;
+  left: -12px;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  font-size: 2em;
+  color: #b8d1ff;
+}
+
+.spinner__container {
+  height: 100%;
+  background-color: #ffffff8f;
+  position: absolute;
+  width: 100%;
+  backdrop-filter: blur(0.2em);
+  z-index: 9999;
+}
+
+.no-events {
+  pointer-events: none;
+}
+
+.new-user-btn__container {
+  position: absolute;
+  right: .5em;
+}
+
+.new-user-btn {
+  color: white;
+  border: 1px solid #839cff;
+  box-shadow: 0 0 15px 0 #7c96ff;
+  background-color: #708dff;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 2.7em;
+  height: 2.7em;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all ease .3s;
+}
+
+.new-user-btn:hover,
+.new-user-btn:hover {
+  background-color: #5f7fe9;
+}

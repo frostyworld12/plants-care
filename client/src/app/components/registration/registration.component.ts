@@ -46,7 +46,7 @@ export class Registration implements OnInit {
         next: (response) => {
           this.toastr.success('User successfully created!');
           console.log(response)
-          this.router.navigate(['/app-home']);
+          this.router.navigate(['/app-login']);
         },
         error: (e) => {
           this.toastr.error(e.error.message);

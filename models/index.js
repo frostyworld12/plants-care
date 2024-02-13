@@ -9,6 +9,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.User         = require('./users.model')(sequelize, Sequelize);
 db.UserType     = require('./userTypes.model')(sequelize, Sequelize);
 db.UserPlant   = require('./usersPlants.model')(sequelize, Sequelize);
+db.UserTasks   = require('./userTasks.model')(sequelize, Sequelize);
 db.UserRequest = require('./usersRequests.model')(sequelize, Sequelize);
 db.RequestType  = require('./requestTypes.model')(sequelize, Sequelize);
 db.Plant        = require('./plants.model')(sequelize, Sequelize);

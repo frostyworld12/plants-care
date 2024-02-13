@@ -16,6 +16,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     lastName: {
       type: Sequelize.STRING
+    },
+    imageUrl: {
+      type: Sequelize.STRING
     }
   });
 
@@ -23,6 +26,7 @@ module.exports = (sequelize, Sequelize) => {
     User.belongsTo(models.UserType, { foreignKey: 'userTypeId' });
     User.hasMany(models.UserPlant, { foreignKey: 'userId' });
     User.hasMany(models.UserRequest, { foreignKey: 'userId' });
+    User.hasMany(models.UserTasks, { foreignKey: 'userId' });
   }
 
   return User;

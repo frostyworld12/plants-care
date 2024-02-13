@@ -1,97 +1,41 @@
 .managment {
   height: 100%;
-  padding: 5em 3em;
+  padding: 1em 3em;
   display: flex;
   justify-content: center;
   column-gap: 3em;
 }
 
-.inbox {
-  height: 100%;
-  box-shadow: 0 0 20px 0 #7777772e;
-  background-color: #ffffff2b;
-  border-radius: 1em;
-  padding: .5em;
-  display: flex;
-  flex-direction: column;
-  width: 20em;
+.managment__header {
+  padding: 1em;
+  box-shadow: 0 0 25px 0 #d8e3f7;
+  background-color: #f4f8ff;
+  border-radius: 2em;
+  margin-bottom: 1em;
 }
 
-.users-table {
-  height: 100%;
-  box-shadow: 0 0 20px 0 #7777772e;
-  background-color: #ffffff2b;
-  border-radius: 1em;
-  padding: .5em;
-  display: flex;
-  flex-direction: column;
-}
-
-.users-table__header {
+.m-header__item {
+  background-color: #ebf1fd;
+  padding: .5em 1em;
+  border-radius: 3.5em;
+  box-shadow: 0 0 10px 0px #d8e3f7;
   font-weight: bold;
-  background-color: #dee5ff4d;
-  border-radius: .5em;
-  padding: 1em;
-  box-shadow: 0 0 10px 0px #00000017;
+  color: #646465;
+  cursor: pointer;
+  transition: all ease .5s;
 }
 
-.users-table__body {
-  height: 100%;
+.m-header__item:hover {
+  background-color: #e0eaff;
+}
+
+.m-header__item:active {
+  background-color: #d9e5ff;
+}
+
+.managment__users {
+  height: 93%;
   display: flex;
-  flex-direction: column;
-  row-gap: .5em;
-  margin-top: 1.5em;
-}
-
-.users-table__row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) 100px;
-  align-items: center;
-}
-
-.users-table__body > div {
-  padding: 1em;
-  border-radius: .5em;
-  padding: 1em;
-  box-shadow: 0 0 0px 1px #a5a5a517;
-  background-color: #dcdaff14;
-  column-gap: 1em;
-}
-
-.users-table__row_role_a {
-  background-color: #ff54036e;
-  border-radius: 1em;
-  padding: .3em 1em;
-  border: 1px solid #ff540382;
-}
-
-.users-table__row_role_m {
-  background-color: #548CFF6e;
-  border-radius: 1em;
-  padding: .3em 1em;
-  border: 1px solid #548CFF82;
-}
-
-.users-table__row_role_u {
-  background-color: #8CBA516e;
-  border-radius: 1em;
-  padding: .3em 1em;
-  border: 1px solid #8CBA5182;
-}
-
-.button-icon__remove {
-  color: #ba0517;
-}
-
-.spinner__container {
-  height: 100%;
-  background-color: #ffffff8f;
-  position: absolute;
-  width: 100%;
-  backdrop-filter: blur(0.2em);
-  z-index: 9999;
-}
-
-.no-events {
-  pointer-events: none;
+  justify-content: center;
+  column-gap: 3em;
 }

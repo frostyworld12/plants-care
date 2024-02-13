@@ -8,13 +8,24 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class Combobox implements OnInit {
   @Input() items: any[] = [];
   @Input() inputId = '';
+  @Input() selectedOption: any = {};
+  @Input() isCreateNewItems: boolean = false;
 
   @Output() onOptionSelect = new EventEmitter<string>();
 
-  selectedOption: any = {};
+  initialData: any = {};
 
   ngOnInit(): void {
     console.log(this.items);
+    console.log(this.selectedOption);
+    this.initialData = {...this.selectedOption};
+  }
+
+  handleListSelect(option: any): void {
+    this.selectedOption = option;
+    this.handleComboboxDisplaying();
+
+    this.onOptionSelect.emit(this.selectedOption.id);
   }
 
   handleComboboxDisplaying(): void {
@@ -27,11 +38,9 @@ export class Combobox implements OnInit {
     }
   }
 
-  handleListSelect(option: any): void {
-    this.selectedOption = option;
-    this.handleComboboxDisplaying();
-
-    this.onOptionSelect.emit(this.selectedOption.id);
+  handleBlur(): void {
+    this.selectedOption.id = null;
+    this.onOptionSelect.emit(this.selectedOption.name);
   }
 
   handleTextInput(event: any): void {

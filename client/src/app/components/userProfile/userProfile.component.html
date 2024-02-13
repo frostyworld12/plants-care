@@ -1,0 +1,114 @@
+<div class="user-profile">
+  <div class="user-profile__content">
+    <div class="tab__container">
+      <ng-container *ngIf="currentTab === 'Profile'">
+        <div class="profile__container">
+          <div id="profile-content" class="profile__content">
+
+            <div [@grow]="isProfileEditing" class="profile__main-info">
+              <div class="image__container">
+                <img
+                  *ngIf="isUserImageVisible"
+                  src="{{userInfo.imageUrl}}"
+                  (error)="handleImageLoadError()"
+                >
+                <i *ngIf="!isUserImageVisible" class="fa-regular fa-user"></i>
+              </div>
+
+              <ng-container *ngIf="!isProfileEditing">
+                <div class="name__container">
+                  <strong>{{ userInfo.firstName }} {{ userInfo.lastName }}</strong>
+                  <div>
+                    <button
+                      class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border"
+                      title="Edit"
+                      (click)="handleEditProfile(true)"
+                    >
+                      <svg class="slds-button__icon" aria-hidden="true">
+                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+
+              <div *ngIf="isProfileEditing">
+                <div class="edit__container">
+
+                  <div class="slds-form-element ">
+                    <div class="slds-form-element__control">
+                      <div class="slds-file-selector slds-file-selector_files">
+                        <div class="slds-file-selector__dropzone file-selector__dropzone_border-small">
+                          <input
+                            id="avatar"
+                            type="file"
+                            class="slds-file-selector__input slds-assistive-text"
+                            accept="image/*"
+                            (change)="handleFileUpload($event)"
+                          />
+                          <label class="slds-file-selector__body" for="avatar" id="file-selector-secondary">
+                            <span>
+                              <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload"></use>
+                              </svg>Upload Files
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slds-form-element">
+                    <label class="slds-form-element__label">
+                      <abbr class="slds-required" title="required">* </abbr>First Name</label>
+                    <div class="slds-form-element__control">
+                      <input id="firstName" type="text" class="slds-input" [(ngModel)]="userInfo.firstName" required/>
+                    </div>
+                  </div>
+
+                  <div class="slds-form-element">
+                    <label class="slds-form-element__label">
+                      <abbr class="slds-required" title="required">* </abbr>Last Name</label>
+                    <div class="slds-form-element__control">
+                      <input id="lastName" type="text" class="slds-input" [(ngModel)]="userInfo.lastName" required/>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="profile_edit__controls">
+                  <button class="slds-button slds-button_outline-brand slds-m-top_medium" (click)="handleEditProfile(false)">Cancel</button>
+                  <button class="slds-button slds-button_brand slds-m-top_medium" (click)="handleSaveUser()">Save</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile__additional-info">
+              <div>
+                <label class="slds-form-element__label">Email</label>
+                <div>
+                  <strong>{{ user.email }}</strong>
+                </div>
+              </div>
+
+              <div>
+                <label class="slds-form-element__label">Role</label>
+                <div>
+                  <strong>{{ user.userType }}</strong>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="spinner__container" *ngIf="isLoading">
+    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+      <span class="slds-assistive-text">Loading</span>
+      <div class="slds-spinner__dot-a"></div>
+      <div class="slds-spinner__dot-b"></div>
+    </div>
+  </div>
+</div>

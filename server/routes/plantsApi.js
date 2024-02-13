@@ -73,7 +73,7 @@ router.post('/processPlant', upload.single('plantImage'), async (req, res) => {
       code: 200,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(400).json({
       code: 400,
       message: error.message || error
@@ -126,9 +126,10 @@ router.get('/getPlantsList', async (req, res) => {
 
 router.delete('/deletePlant', async (req, res) => {
   try {
-    const plantId = req.query.plantId;
+    const { plantId, isUserPlant } = req.query;
 
-    await db.Plant.destroy({
+    const table = JSON.parse(isUserPlant) ? db.UserPlant : db.Plant;
+    await table.destroy({
       where: {
         id: plantId
       }
@@ -138,11 +139,127 @@ router.delete('/deletePlant', async (req, res) => {
       code: 200,
     });
   } catch (error) {
+
+    console.log(error);
+
     return res.status(400).json({
       code: 400,
       message: error.message || error
     });
   }
 })
+
+router.post('/addPlantToUserCatalog', async (req, res) => {
+  try {
+    const plantData = req.body;
+    console.log(plantData);
+
+    if (!plantData.userId || !plantData.plantId) {
+      throw new Error('Not enough info provided!');
+    }
+
+    await db.UserPlant.create({
+      userId: plantData.userId,
+      plantId: plantData.plantId
+    });
+
+    return res.status(200).json({
+      code: 200
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      code: 400,
+      message: error.message || error
+    });
+  }
+});
+
+router.get('/getUserPlantsList', async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    let whereCondition = `WHERE userId = '${userId}'`;
+
+    if (req.query.name) {
+      whereCondition += ` AND userPlantName LIKE '%${req.query.name}%' OR name LIKE '%${req.query.name}%'`;
+    }
+
+    const plants = await db.sequelize.query(
+      `SELECT * FROM userplantslist ${whereCondition}`,
+      {
+        type: db.Sequelize.QueryTypes.SELECT,
+        raw: true
+      }
+    );
+
+    return res.status(200).json({
+      code: 200,
+      plants: plants
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      code: 400,
+      message: error.message || error
+    });
+  }
+});
+
+router.post('/changeUserPlantName', async (req, res) => {
+  try {
+    const plantData = req.body;
+
+    console.log(plantData)
+
+    if (!plantData.userPlantId || !plantData.name) {
+      throw new Error('Not enough info provided!');
+    }
+
+    await db.UserPlant.update({name: plantData.name}, {
+      where: {
+        id: plantData.userPlantId
+      }
+    });
+
+    return res.status(200).json({
+      code: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      code: 400,
+      message: error.message || error
+    });
+  }
+});
+
+router.post('/createRequest', async (req, res) => {
+  try {
+    const requestData = req.body;
+
+    console.log(requestData)
+
+    if (!requestData.plantId || !requestData.userId || !requestData.description) {
+      throw new Error('Not enough info provided!');
+    }
+
+    await db.UserRequest.create({
+      plantId: requestData.plantId,
+      userId: requestData.userId,
+      description: requestData.description
+    });
+
+    return res.status(200).json({
+      code: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      code: 400,
+      message: error.message || error
+    });
+  }
+});
 
 module.exports = router;

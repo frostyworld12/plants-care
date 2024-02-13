@@ -16,7 +16,14 @@ import { Registration } from './components/registration/registration.component';
 import { Home } from './components/home/home.component';
 import { Plants } from './components/plantsCatalog/plantsCatalog.component';
 import { Managment } from './components/managment/managment.component';
+import { UserProfile } from './components/userProfile/userProfile.component';
+import { UserTasks } from './components/userTasks/userTasks.component';
+import { UserTasksDescription } from './components/userTasksDescription/userTasksDescription.component';
+
 import { Combobox }  from "./ui/combobox/combobox.component";
+import { ConfirmationDialog }  from "./ui/confirmationDialog/confirmationDialog.component";
+import { UiHelpers } from './util/uiHelpers';
+import { ManagmentUsers }  from "./components/managmentUsers/managmentUsers.component";
 
 @NgModule({
   declarations: [
@@ -26,7 +33,12 @@ import { Combobox }  from "./ui/combobox/combobox.component";
     Home,
     Plants,
     Managment,
-    Combobox
+    UserProfile,
+    Combobox,
+    ConfirmationDialog,
+    ManagmentUsers,
+    UserTasks,
+    UserTasksDescription
   ],
   imports: [
     BrowserModule,
@@ -39,7 +51,8 @@ import { Combobox }  from "./ui/combobox/combobox.component";
     provideToastr(),
     provideAnimations(),
     MakeRequest,
-    AppStorage
+    AppStorage,
+    UiHelpers
   ],
   bootstrap: [AppComponent]
 })

@@ -5,24 +5,23 @@
 }
 
 .plants__page-header {
+  width: 40%;
+  height: 4.5em;
   padding: 1em;
+  margin: 1em auto;
   display: flex;
-  border-bottom: 1px solid #0000000f;
-  box-shadow: 0 0 20px 0 #7777772e;
-  background-color: #ffffff42;
-  justify-content: flex-end;
+  column-gap: 1em;
+  align-items: center;
+  background-color: #f8fbff;
+  border-radius: 2em;
+  border: 2px solid #fafaff;
+  box-shadow: 0 0 25px 0 #d8e3f7;
 }
 
 .plants__page-header .slds-form-element {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  width: 100%;
-  flex: .3;
-}
-
-.plants__page-header .slds-form-element .slds-form-element__control {
-  flex: .3;
+  flex: 1;
+  left: 0;
+  border-radius: 2em;
 }
 
 .search__icon {
@@ -44,10 +43,6 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-}
-
-.button_icon-small-border {
-  border-radius: .85em !important;
 }
 
 .plant__card-description {
@@ -87,17 +82,14 @@
 .card_small {
   margin: 1em 1.5em;
   width: 30em;
-  background-color: #ffffff59 !important;
+  background-color: #f4f8ff !important;
+  border: 2px solid #ffffff96 !important;
 }
 
 .card__body-container {
   display: flex;
   column-gap: 1em;
   height: 10em;
-}
-
-.button-icon__remove {
-  color: #ba0517;
 }
 
 .plant-care__container {
@@ -154,11 +146,10 @@
 }
 
 .plant-picture {
-  background-color: #f6f9ff;
-  border-radius: 1.5em;
+  border-radius: 50%;
+  border: 1px solid #e5ebff;
   height: 8em;
   width: 8em;
-  box-shadow: 0 0 20px 0 #4c4c4c30;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -169,7 +160,7 @@
 .plant-picture_large {
   height: 15em;
   width: 15em;
-  border-radius: 2em;
+  border-radius: 50%;
   margin: 1em;
 }
 
@@ -200,14 +191,23 @@
 .view__brief-description {
   display: flex;
   flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.view-description-text_header {
   font-size: 18px;
   font-weight: 500;
-  margin-bottom: 1em;
 }
 
 .view-description-text_large {
   font-size: 16px;
   padding: 0 0.5em;
+}
+
+.view__name-controls {
+  display: flex;
+  column-gap: 1em;
+  align-items: center;
 }
 
 .file-selector__container {
@@ -216,10 +216,6 @@
   align-items: center;
   row-gap: 1em;
   flex-direction: column;
-}
-
-.file-selector__dropzone_border-small {
-  border-radius: 1.5em;
 }
 
 .spinner__container {
@@ -231,8 +227,19 @@
   z-index: 9999;
 }
 
-.slds-backdrop {
-  backdrop-filter: blur(10px);
+.request-modal {
+  position: absolute;
+  background-color: white;
+  padding: 1em;
+  border-radius: 1em;
+  width: 70%;
+  box-shadow: 0 0 10px 0 #00000024;
+}
+
+.request-modal__footer {
+  display: flex;
+  justify-content: end;
+  margin-top: 1em;
 }
 
 .slds-form-element__help {

@@ -9,19 +9,21 @@ app.use((req, res, next) => {
   next();
 });
 
-const users = require('./server/routes/usersApi');
-const plants = require('./server/routes/plantsApi');
+const users     = require('./server/routes/usersApi');
+const plants    = require('./server/routes/plantsApi');
+const userTasks = require('./server/routes/userTasks');
 
 // const db = require('./models');
-// db.sequelize.sync({ force: true })
+// db.sequelize.sync({ alter: true })
 //     .then(() => console.log('Database synced!'))
 //     .catch(e => console.log(e));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.use('/users', users);
+app.use('/users' , users);
 app.use('/plants', plants);
+app.use('/tasks' , userTasks);
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');

@@ -9,7 +9,8 @@
           placeholder="Choose option…"
           [(ngModel)]="selectedOption.name"
           (click)="handleComboboxDisplaying()"
-          (keydown)="handleTextInput($event)"
+          (keydown)="isCreateNewItems || handleTextInput($event)"
+          (change)="!isCreateNewItems || handleBlur()"
           required
         >
         <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">

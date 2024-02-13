@@ -1,0 +1,39 @@
+<section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+  <div class="slds-modal__container">
+    <div class="slds-modal__header">
+      <h1 class="slds-modal__title slds-hyphenate"></h1>
+    </div>
+    <div class="slds-modal__content">
+
+      <ng-container *ngFor="let taskPlant of tasksDescription">
+        {{ taskPlant.plantName }}
+        {{ taskPlant.plantId }}
+
+        <div>
+          <ng-container *ngFor="let task of taskPlant.tasks">
+            <div>
+              <label class="checkbox__container checkbox__container_large">
+                <input type="checkbox">
+                <span class="checkbox__checkmark checkbox__checkmark_large"></span>
+                <span class="task-name">{{ task.operationName }}</span>
+              </label>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <!-- <div *ngFor="let task of tasks">
+        <label class="checkbox__container checkbox__container_large">
+          <input type="checkbox">
+          <span class="checkbox__checkmark checkbox__checkmark_large"></span>
+          <span class="task-name">{{ task.operationName }}</span>
+        </label>
+      </div> -->
+    </div>
+    <div class="slds-modal__footer">
+      <button class="slds-button slds-button_neutral" aria-label="Cancel and close" (click)="handleClose()">Cancel</button>
+      <button class="slds-button slds-button_brand">Save</button>
+    </div>
+  </div>
+</section>
+<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
