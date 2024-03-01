@@ -128,6 +128,8 @@ router.delete('/deletePlant', async (req, res) => {
   try {
     const { plantId, isUserPlant } = req.query;
 
+    console.log(plantId, isUserPlant);
+
     const table = JSON.parse(isUserPlant) ? db.UserPlant : db.Plant;
     await table.destroy({
       where: {
@@ -238,16 +240,28 @@ router.post('/createRequest', async (req, res) => {
   try {
     const requestData = req.body;
 
-    console.log(requestData)
-
     if (!requestData.plantId || !requestData.userId || !requestData.description) {
       throw new Error('Not enough info provided!');
+    }
+
+    const userRequestType = await db.UserRequestType.findOne({
+      where: {
+        name: 'In review'
+      },
+      attributes: ['id'],
+      raw: true
+    });
+
+    if (!userRequestType) {
+      throw new Error('Colud not create request!');
     }
 
     await db.UserRequest.create({
       plantId: requestData.plantId,
       userId: requestData.userId,
-      description: requestData.description
+      description: requestData.description,
+      userRequestTypeId: userRequestType.id,
+      requestStatus: 'In review'
     });
 
     return res.status(200).json({

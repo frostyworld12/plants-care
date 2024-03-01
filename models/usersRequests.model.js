@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
   UserRequest.associate = (models) => {
     UserRequest.belongsTo(models.User, { foreignKey: 'userId' });
     UserRequest.belongsTo(models.Plant, { foreignKey: 'plantId' });
-    UserRequest.hasOne(models.RequestType, { foreignKey: 'requestTypeId' });
+    UserRequest.belongsTo(models.UserRequestType, { foreignKey: 'userRequestTypeId' });
   }
 
   return UserRequest;

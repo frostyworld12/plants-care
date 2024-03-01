@@ -10,6 +10,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     operationDate: {
       type: Sequelize.DATEONLY
+    },
+    isCompleted: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
     }
   });
 

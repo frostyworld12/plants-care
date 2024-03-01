@@ -101,3 +101,27 @@
   display: flex;
   justify-content: center;
 }
+
+.tabs__container {
+  display: flex;
+  column-gap: .5em;
+  margin: 1em;
+}
+
+.tab__container_tab {
+  background-color: #f4f4ff;
+  padding: .5em 1em;
+  border-radius: 0.8em;
+  box-shadow: 0 0 4px 1px #ececff;
+  cursor: pointer;
+  transition: all ease .3s;
+  font-weight: 500;
+}
+
+.tab__container_tab:hover {
+  background-color: #ececff;
+}
+
+.tab__container_tab-selected {
+  background-color: #e2e2ff;
+}

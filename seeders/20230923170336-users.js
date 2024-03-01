@@ -23,6 +23,13 @@ module.exports = {
         firstName: 'Manager',
         lastName: 'Manager',
         userTypeId: userTypePerId['Content Manager']
+      },
+      {
+        email: 'test_user@gmail.com',
+        password: '123456',
+        firstName: 'User',
+        lastName: 'User',
+        userTypeId: userTypePerId['User']
       }
     ]);
   },

@@ -24,12 +24,18 @@
     "sequelize-cli": "^6.6.1"
   },
   "dependencies": {
+    "@rodrigogs/mysql-events": "^0.6.0",
     "body-parser": "^1.20.2",
+    "cron": "^3.1.6",
     "express": "*",
     "multer": "^1.4.5-lts.1",
-    "mysql2": "*",
+    "mysql": "^2.18.1",
+    "mysql-events": "^0.0.11",
+    "mysql2": "^3.9.1",
+    "mysqldump": "^3.2.0",
     "nodemailer": "^6.9.6",
     "nodemon": "*",
-    "sequelize": "*"
+    "sequelize": "*",
+    "write-excel-file": "^1.4.29"
   }
 }

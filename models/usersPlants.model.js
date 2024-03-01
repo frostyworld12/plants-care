@@ -14,6 +14,7 @@ module.exports = (sequelize, Sequelize) => {
     UserPlant.belongsTo(models.Plant, { foreignKey: 'plantId' });
     UserPlant.belongsTo(models.User, { foreignKey: 'userId' });
     UserPlant.hasMany(models.UserTasks, { foreignKey: 'plantId' });
+    UserPlant.hasMany(models.UserTasksHistory, { foreignKey: 'plantId' });
   }
 
   return UserPlant;

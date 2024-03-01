@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class Combobox implements OnInit {
   @Input() items: any[] = [];
   @Input() inputId = '';
+  @Input() comboboxId = 'custom-combobox';
   @Input() selectedOption: any = {};
   @Input() isCreateNewItems: boolean = false;
 
@@ -29,7 +30,7 @@ export class Combobox implements OnInit {
   }
 
   handleComboboxDisplaying(): void {
-    const combobox = document.getElementById('custom-comobobox');
+    const combobox = document.getElementById(this.comboboxId);
 
     if (combobox?.classList.contains('slds-is-open')) {
       combobox?.classList.remove('slds-is-open');

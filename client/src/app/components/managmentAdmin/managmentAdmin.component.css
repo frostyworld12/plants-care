@@ -1,0 +1,91 @@
+.managment-admin {
+  padding: 1em;
+  height: 650px;
+  overflow: auto;
+}
+
+.logs-button__container {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 1em;
+}
+
+.tables__container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: .5em;
+  row-gap: .5em;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.table_name {
+  padding: .5em;
+  width: auto !important;
+}
+
+.columns__container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 9999;
+  border-radius: 1.5em;
+  box-shadow: 0 5px 10px 0 #f2f6ff;
+  margin: 0.3em 0;
+  background-color: #ffffff7a;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-color: #f8faff;
+  padding: 1em;
+  margin: .5em 0;
+}
+
+.column_name {
+  font-weight: 500;
+  padding: .5em 0;
+}
+
+.db-request__textarea {
+  resize: none;
+}
+
+.db-request__options {
+  display: flex;
+  justify-content: end;
+  margin-top: 1em;
+  column-gap: 1em;
+}
+
+.request-result {
+  border-radius: 1em;
+  margin-top: 1em;
+  overflow-x: auto;
+  border-radius: 1em;
+  padding-bottom: 1em;
+}
+
+.result-table__header-cell {
+  background-color: #eef2ff;
+}
+
+.result-table__body-cell {
+  background-color: #f9fbff;
+}
+
+.request-result::-webkit-scrollbar {
+  height: 5px;
+}
+
+.request-result::-webkit-scrollbar-track {
+  border-radius: 1em;
+  margin-block: .5em;
+}
+
+.request-result::-webkit-scrollbar-thumb {
+  background: #0000001c;
+  border-radius: 1em;
+}
+
+.request-result::-webkit-scrollbar-thumb:hover {
+  background: #00000033;
+}

@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { ToastrService }            from 'ngx-toastr';
-import { AppConsts }                from "src/app/util/Consts";
-import { ActivatedRoute, Router }           from '@angular/router';
-import { AppStorage }               from "src/app/services/appStorage";
-import { MakeRequest }              from "src/app/services/makeRequest";
-import { UiHelpers }                from "src/app/util/uiHelpers";
+import { Component, OnInit }      from "@angular/core";
+import { ToastrService }          from 'ngx-toastr';
+import { AppConsts }              from "src/app/util/Consts";
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppStorage }             from "src/app/services/appStorage";
+import { MakeRequest }            from "src/app/services/makeRequest";
+import { UiHelpers }              from "src/app/util/uiHelpers";
 
 @Component({
   selector: 'app-plants',
@@ -61,6 +61,7 @@ export class Plants implements OnInit {
     this.user = this.appStorage.getUser();
     if (!this.user) {
       this.toastr.error('User not found!');
+      this.router.navigate(['/app-login']);
     }
 
     this.getPlantsList();
@@ -221,6 +222,7 @@ export class Plants implements OnInit {
 
       if (isSave) {
         this.createRequest();
+        this.requestDescription = '';
         this.isRequestModalVisible = false;
       }
     }
@@ -325,7 +327,7 @@ export class Plants implements OnInit {
 
   removePlant(plantId: string): void {
     this.isLoading = true;
-    this.request.delete(AppConsts.DELETE_PLANT, {plantId: plantId, isUserPlant: this.user.type === 'User'})
+    this.request.delete(AppConsts.DELETE_PLANT, {plantId: plantId, isUserPlant: this.user.userType === 'User'})
     .subscribe({
       next: () => {
         this.toastr.success('Plant successfully deleted!');

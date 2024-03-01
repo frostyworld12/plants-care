@@ -1,0 +1,52 @@
+.log-operation {
+  display: flex;
+  column-gap: 1em;
+  align-items: center;
+}
+
+.slds-modal__container {
+  width: 30% !important;
+  max-width: none !important;
+}
+
+.slds-modal__content {
+  overflow: hidden !important;
+}
+
+.backup-button__container {
+  display: flex;
+  justify-content: end;
+}
+
+.button-backup {
+  width: unset !important;
+  padding: .5em !important;
+}
+
+.backups__container {
+  overflow: auto;
+  padding: 0 .5em;
+}
+
+.backups__container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.backups__container::-webkit-scrollbar-track {
+  border-radius: 1em;
+  margin-block: .5em;
+}
+
+.backups__container::-webkit-scrollbar-thumb {
+  background: #0000001c;
+  border-radius: 1em;
+}
+
+.backups__container::-webkit-scrollbar-thumb:hover {
+  background: #00000033;
+}
+
+.backups__container {
+  overflow-y: auto;
+  height: 600px;
+}

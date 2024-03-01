@@ -14,6 +14,7 @@ export class UserTasksDescription implements OnInit {
   user: any;
 
   @Input() tasksIds: any[] = [];
+  @Input() date: string = '';
 
   @Output() onModalClose = new EventEmitter<any>();
 
@@ -37,13 +38,20 @@ export class UserTasksDescription implements OnInit {
     this.onModalClose.emit();
   }
 
+  handleSave(): void {
+    this.saveTasks();
+    this.handleClose();
+  }
 
-
+  handleTaskComplete(task: any): void {
+    task.isCompleted = !task.isCompleted;
+  }
 
   /* <============================ REQUESTS ==============================> */
   getTasks(): void {
     this.request.post(AppConsts.GET_TASKS_DESCRIPTION, {
       tasksIds: this.tasksIds,
+      userId: this.user.id
     }, {})
     .subscribe({
       next: (response) => {
@@ -51,7 +59,7 @@ export class UserTasksDescription implements OnInit {
           const tasksDescription = response.tasks.reduce((tasksDescription: any, task: any) => {
             if (!tasksDescription[task.plantId]) {
               tasksDescription[task.plantId] = {
-                plantName: task.name,
+                plantName: task.userPlantName || task.plantName,
                 plantId: task.plantId,
                 plantImage: task.imageUrl,
                 tasks: []
@@ -59,22 +67,42 @@ export class UserTasksDescription implements OnInit {
             }
 
             tasksDescription[task.plantId].tasks.push({
+              id: task.id,
               operationName: task.operationName,
-              operationDate: task.operationDate
+              operationDate: task.operationDate,
+              isCompleted: task.isCompleted
             });
 
             return tasksDescription;
           }, {});
 
-          console.log(tasksDescription)
-
           this.tasksDescription = Object.values(tasksDescription);
-
-          console.log(this.tasksDescription)
         }
       },
       error: (error) => {
         this.toastr.warning('Could not get task!');
+      }
+    });
+  }
+
+  saveTasks(): void {
+    const tasks: any = {};
+
+    this.tasksDescription.forEach((plantTasks: any) => {
+      plantTasks.tasks.forEach((task: any) => {
+        tasks[task.id] = task.isCompleted;
+      });
+    });
+
+    this.request.post(AppConsts.SAVE_TASKS, {
+      tasks: tasks,
+    }, {})
+    .subscribe({
+      next: (response) => {
+        this.toastr.success('Tasks successfully completed!');
+      },
+      error: (error) => {
+        this.toastr.warning('Could not save tasks!');
       }
     });
   }

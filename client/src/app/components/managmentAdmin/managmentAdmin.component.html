@@ -1,0 +1,126 @@
+<div class="managment-admin">
+  <div class="logs-button__container">
+    <button
+      class="slds-button slds-button_outline-brand"
+      (click)="handleViewOpen('LOGS')"
+    >
+      View logs
+    </button>
+    <button
+      class="slds-button slds-button_outline-brand"
+      (click)="handleViewOpen('BACKUP')"
+    >
+      View DB backup
+    </button>
+  </div>
+  <div class="tables__container">
+    <ng-container *ngFor="let tableName of objectKeys(columnsPerTable)">
+      <div style="position: relative;">
+         <button
+          class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border table_name"
+          title="tableName"
+          (click)="handleTableNameSelect(tableName)"
+          draggable="true"
+          (dragstart)="handleTableNameDrag(tableName)"
+        >
+          {{ tableName }}
+        </button>
+
+        <div *ngIf="currentTable === tableName" class="columns__container">
+          <ng-container *ngFor="let columnName of columnsPerTable[tableName]">
+            <span class="column_name"
+              draggable="true"
+              (dragstart)="handleTableColumnDrag(columnName)"
+            >
+              {{ columnName }}
+            </span>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="slds-form-element">
+    <div class="slds-form-element__control">
+      <textarea
+        id="request-description"
+        [(ngModel)]="dbRequest"
+        class="slds-textarea db-request__textarea"
+        placeholder="Database request…"
+        rows="5"
+        (drop)="handleDrop($event)"
+        (dragover)="handleDragOver($event)"
+      ></textarea>
+    </div>
+  </div>
+  <div class="db-request__options">
+    <button
+      class="slds-button slds-button_brand"
+      (click)="handlePerformRequest()"
+    >
+      Execute
+    </button>
+  </div>
+
+  <ng-container *ngIf="requestResultData.length === 0 && isRequestPerformed">
+    <div class="slds-text-heading_medium">
+      No records found
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="requestResultData.length !== 0">
+    <div class="request-result_options">
+      <a href="{{ downloadLink }}">
+        <button
+          class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border slds-m-right_x-small"
+          title="Save"
+        >
+          <svg class="slds-button__icon" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#save"></use>
+          </svg>
+        </button>
+      </a>
+
+      <button
+        class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border"
+        title="Print"
+        (click)="handlePrint()"
+      >
+        <svg class="slds-button__icon" aria-hidden="true">
+          <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#print"></use>
+        </svg>
+      </button>
+    </div>
+
+    <div id="print-section" class="request-result">
+      <table class="slds-table slds-table_cell-buffer">
+        <thead>
+          <tr class="slds-line-height_reset">
+            <th scope="col" class="slds-text-title_caps result-table__header-cell" *ngFor="let column of requestResultColumns">
+              {{ column }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="slds-hint-parent result-table__body-row" *ngFor="let data of requestResultData">
+            <td *ngFor="let column of objectKeys(data)" class="result-table__body-cell">
+              {{ data[column] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <managment-logs-view
+    *ngIf="isManagmentLogsOpen"
+    (onLogsClose)="handleModalsClose($event, 'LOGS')"
+  >
+  </managment-logs-view>
+
+  <managment-backup-view
+    *ngIf="isManagmentBackupOpen"
+    (onBackupClose)="handleModalsClose($event, 'BACKUP')"
+  >
+  </managment-backup-view>
+</div>

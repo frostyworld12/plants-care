@@ -1,0 +1,62 @@
+.user-requests__container {
+  padding: 1em;
+  height: 650px;
+  overflow: auto;
+}
+
+.request__card {
+  background-color: #f7f7ff;
+  border-radius: 1em;
+  padding: 1em;
+  box-shadow: 0 0 10px 1px #f1f1ff;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5em;
+}
+
+.filter__container {
+  display: flex;
+  justify-content: end;
+  column-gap: .3em;
+  margin: 1em 0;
+}
+
+.filter_selected {
+  background-color: #f0f0ff;
+}
+
+.request-filter {
+  width: auto !important;
+  padding: 0 .5em;
+}
+
+.request_name__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.request__description {
+  line-height: 26px;
+}
+
+.request__date {
+  align-self: flex-end;
+}
+
+.user-requests__container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.user-requests__container::-webkit-scrollbar-track {
+  border-radius: 1em;
+  margin-block: .3em;
+}
+
+.user-requests__container::-webkit-scrollbar-thumb {
+  background: #0000001c;
+  border-radius: 1em;
+}
+
+.user-requests__container::-webkit-scrollbar-thumb:hover {
+  background: #00000033;
+}

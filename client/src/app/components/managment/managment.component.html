@@ -1,8 +1,34 @@
 <div class="managment">
-  <div>
-    <div class="managment__header">
-      <span class="m-header__item">Users</span>
+  <div class="managment__content">
+    <div class="tabs__container slds-text-heading_small">
+      <ng-container *ngFor="let tab of tabs">
+        <div
+          class="tab__container_tab"
+          [ngClass]="{ 'tab__container_tab-selected': tab === selectedTab }"
+          (click)="handleSelectTab(tab)"
+        >
+          {{ tab }}
+        </div>
+      </ng-container>
     </div>
-    <managment-users class="managment__users"></managment-users>
+    <ng-container *ngIf="selectedTab === 'Users'">
+      <managment-users
+        class="managment__users"
+        (onLoading)="handleLoading($event)"
+      ></managment-users>
+    </ng-container>
+
+    <ng-container *ngIf="selectedTab === 'Managment'">
+      <managment-admin
+      ></managment-admin>
+    </ng-container>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="spinner__container">
+  <div role="status" class="slds-spinner slds-spinner_medium">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
   </div>
 </div>

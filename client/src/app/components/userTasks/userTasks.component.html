@@ -29,7 +29,10 @@
                 <ng-container *ngIf="day.tasks">
                   <div class="day__tasks-indicator">
                     <span *ngFor="let task of day.tasks">
-                      <i class="fa-solid fa-circle"></i>
+                      <i class="fa-solid fa-circle" [ngClass]="{
+                        'completed': task.isCompleted,
+                        'waiting': !task.isCompleted
+                      }"></i>
                     </span>
                   </div>
                 </ng-container>
@@ -50,6 +53,7 @@
   <ng-container *ngIf="isTasksDescrptionOpen">
     <user-tasks-description
       [tasksIds]="selectedTasks"
+      [date]="selectedDate"
       (onModalClose)="handleOpenTasksDescription()"
     ></user-tasks-description>
   </ng-container>

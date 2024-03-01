@@ -1,6 +1,17 @@
 <div class="home">
+  <div class="logout-button__container">
+      <button
+        class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border"
+        title="Log out"
+        (click)="handleLogOut()"
+      >
+      <svg class="slds-button__icon" aria-hidden="true">
+        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#logout"></use>
+      </svg>
+    </button>
+  </div>
   <div class="nav-container">
-    <div *ngIf="user.userType !== 'Admin'" class="nav-item" (click)="navigateToPage('app-my-plants')">
+    <div *ngIf="user.userType === 'User'" class="nav-item" (click)="navigateToPage('app-my-plants')">
       <div class="nav__item-container">
         <div class="nav__item nav__item-front">
           <i class="fa-solid fa-leaf fa-icon nav__item__icon" style="font-size: 3.4em;"></i>
@@ -30,7 +41,7 @@
       </div>
     </div>
 
-    <div *ngIf="user.userType === 'Admin'" class="nav-item" (click)="navigateToPage('app-managment')">
+    <div *ngIf="user.userType !== 'User'" class="nav-item" (click)="navigateToPage('app-user-requests')">
       <div class="nav__item-container">
         <div class="nav__item nav__item-front">
           <i class="fa-solid fa-window-restore fa-icon nav__item__icon"></i>
@@ -40,7 +51,7 @@
       </div>
     </div>
 
-    <div *ngIf="user.userType !== 'Admin'" class="nav-item" (click)="navigateToPage('app-user-profile')">
+    <div *ngIf="user.userType === 'User'" class="nav-item" (click)="navigateToPage('app-user-profile')">
       <div class="nav__item-container">
         <div class="nav__item nav__item-front">
           <i class="fa-solid fa-user fa-icon nav__item__icon"></i>

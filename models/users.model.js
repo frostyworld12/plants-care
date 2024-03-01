@@ -27,6 +27,7 @@ module.exports = (sequelize, Sequelize) => {
     User.hasMany(models.UserPlant, { foreignKey: 'userId' });
     User.hasMany(models.UserRequest, { foreignKey: 'userId' });
     User.hasMany(models.UserTasks, { foreignKey: 'userId' });
+    User.hasMany(models.UserTasksHistory, { foreignKey: 'userId' });
   }
 
   return User;

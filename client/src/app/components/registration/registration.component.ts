@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AppConsts } from "src/app/util/Consts";
 import { MakeRequest } from "src/app/services/makeRequest";
 import { Router } from '@angular/router';
+import { AppStorage } from "src/app/services/appStorage";
 
 @Component({
   selector: 'app-registration',
@@ -18,11 +19,12 @@ export class Registration implements OnInit {
   constructor(
     private toastr: ToastrService,
     private request: MakeRequest,
-    private router: Router
+    private router: Router,
+    private appStorage: AppStorage
   ) { }
 
   ngOnInit(): void {
-
+    this.appStorage.removeUser();
   }
 
 

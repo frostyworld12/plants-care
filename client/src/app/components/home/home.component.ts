@@ -21,6 +21,7 @@ export class Home implements OnInit {
     this.user = this.appStorage.getUser();
     if (!this.user) {
       this.toastr.error('User not found!');
+      this.router.navigate(['/app-login']);
     }
   }
 
@@ -30,5 +31,10 @@ export class Home implements OnInit {
     } else {
       this.router.navigate([page]);
     }
+  }
+
+  handleLogOut(): void {
+    this.user = this.appStorage.removeUser();
+    this.router.navigate(['/app-login']);
   }
 }

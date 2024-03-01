@@ -69,9 +69,14 @@
   top: 0;
 }
 
-.day__tasks-indicator > span > i {
+.day__tasks-indicator > span > .waiting {
   font-size: 7px;
   color: #63b387;
+}
+
+.day__tasks-indicator > span > .completed {
+  font-size: 7px;
+  color: #b3a463;
 }
 
 .back-icons {

@@ -1,7 +1,12 @@
-.task-name {
-  font-size: 25px;
-}
-
 .slds-modal__content {
   padding: 1em;
+}
+
+.slds-modal__container {
+  width: 25% !important;
+}
+
+.task_description__container {
+  display: flex;
+  align-items: center;
 }

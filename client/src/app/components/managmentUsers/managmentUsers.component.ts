@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { ToastrService }     from 'ngx-toastr';
 import { AppConsts }         from "src/app/util/Consts";
 import { Router }            from '@angular/router';
@@ -12,13 +12,15 @@ import { UiHelpers }         from "src/app/util/uiHelpers";
   styleUrls: ['./managmentUsers.component.css']
 })
 export class ManagmentUsers implements OnInit {
+  @Output() onLoading = new EventEmitter<boolean>();
+
   user: any = null;
   users: any[] = [];
   userTypes: any[] = [];
 
   currentUser: any = {id: null};
 
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   objectKeys = Object.keys;
   objectValues = Object.values;
@@ -46,6 +48,12 @@ export class ManagmentUsers implements OnInit {
     this.user = this.appStorage.getUser();
     if (!this.user) {
       this.toastr.error('User not found!');
+      this.router.navigate(['/app-login']);
+    }
+
+    if (this.user.userType !== 'Admin') {
+      this.toastr.error('You have no permissions to view this page!');
+      this.router.navigate(['/app-login']);
     }
 
     this.getUsers();
@@ -102,11 +110,12 @@ export class ManagmentUsers implements OnInit {
   /* <============================ REQUESTS ==============================> */
 
   getUsers(): void {
-    this.isLoading = true;
+    this.onLoading.emit(true);
+
     this.request.get(AppConsts.GET_USERS, {})
     .subscribe({
       next: (response) => {
-        this.isLoading = false;
+        this.onLoading.emit(false);
 
         this.users = response.users;
         this.userTypes = (response.userTypes || []).map((type: any) => ({
@@ -115,24 +124,24 @@ export class ManagmentUsers implements OnInit {
         }));
       },
       error: (e) => {
-        this.isLoading = false;
+        this.onLoading.emit(false);
         this.toastr.error('Error while receiving users!');
       },
     });
   }
 
   processUser(): void {
-    this.isLoading = true;
+    this.onLoading.emit(true);
 
     this.request.post(AppConsts.PROCESS_USER, {userData: this.currentUser}, {})
     .subscribe({
       next: (response) => {
-        this.isLoading = false;
+        this.onLoading.emit(false);
         this.toastr.success('Success!');
         this.getUsers();
       },
       error: (e) => {
-        this.isLoading = false;
+        this.onLoading.emit(false);
         this.toastr.error('Error while saving user!');
       },
     });

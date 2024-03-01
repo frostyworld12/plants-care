@@ -1,0 +1,38 @@
+.log-operation {
+  display: flex;
+  column-gap: 1em;
+  align-items: center;
+}
+
+.slds-modal__container {
+  width: 50% !important;
+  max-width: none !important;
+}
+
+.slds-modal__content {
+  overflow: hidden !important;
+}
+
+.logs__container {
+  overflow: auto;
+  padding: 0 .5em;
+  height: 500px;
+}
+
+.logs__container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.logs__container::-webkit-scrollbar-track {
+  border-radius: 1em;
+  margin-block: .5em;
+}
+
+.logs__container::-webkit-scrollbar-thumb {
+  background: #0000001c;
+  border-radius: 1em;
+}
+
+.logs__container::-webkit-scrollbar-thumb:hover {
+  background: #00000033;
+}

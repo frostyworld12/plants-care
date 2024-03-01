@@ -1,0 +1,38 @@
+<div class="user-requests">
+  <div class="filter__container">
+    <ng-container *ngFor="let status of requestStatuses">
+      <button
+        class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border request-filter"
+        [ngClass]="{ 'filter_selected': status === selectedStatus }"
+        (click)="handleStatusClick(status)"
+      >
+        {{ status }}
+      </button>
+    </ng-container>
+  </div>
+
+  <div class="user-requests__container">
+    <div *ngIf="requests.length === 0" class="slds-text-heading_large slds-align_absolute-center" style="height:600px">
+      No reqests found
+    </div>
+
+    <ng-container *ngFor="let request of requests">
+      <div class="request__card">
+        <div class="request_name__container">
+          <span class="slds-text-heading_medium slds-m-bottom_small">
+            {{ request.plantName }}
+          </span>
+          <span class="slds-text-title_caps">
+            {{ request.requestStatus }}
+          </span>
+        </div>
+        <div class="request__description slds-text-heading_small">
+          {{ request.requestDescription }}
+        </div>
+        <span class="request__date slds-text-title">
+          {{ request.requestDate | date: 'yyyy-MM-dd' }}
+        </span>
+      </div>
+    </ng-container>
+  </div>
+</div>

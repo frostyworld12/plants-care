@@ -15,7 +15,7 @@ export class Login implements OnInit {
   userPassword :string = '';
 
   ngOnInit(): void {
-
+    this.appStorage.removeUser();
   }
 
   constructor(

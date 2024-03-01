@@ -6,15 +6,16 @@ const db = {};
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-db.User         = require('./users.model')(sequelize, Sequelize);
-db.UserType     = require('./userTypes.model')(sequelize, Sequelize);
-db.UserPlant   = require('./usersPlants.model')(sequelize, Sequelize);
-db.UserTasks   = require('./userTasks.model')(sequelize, Sequelize);
-db.UserRequest = require('./usersRequests.model')(sequelize, Sequelize);
-db.RequestType  = require('./requestTypes.model')(sequelize, Sequelize);
-db.Plant        = require('./plants.model')(sequelize, Sequelize);
-db.PlantCare   = require('./plantsCare.model')(sequelize, Sequelize);
-db.PlantType   = require('./plantsTypes.model')(sequelize, Sequelize);
+db.User             = require('./users.model')(sequelize, Sequelize);
+db.UserType         = require('./userTypes.model')(sequelize, Sequelize);
+db.UserPlant        = require('./usersPlants.model')(sequelize, Sequelize);
+db.UserTasks        = require('./userTasks.model')(sequelize, Sequelize);
+db.UserTasksHistory = require('./userTasksHistory.model')(sequelize, Sequelize);
+db.UserRequest      = require('./usersRequests.model')(sequelize, Sequelize);
+db.UserRequestType  = require('./usersRequestsType.model')(sequelize, Sequelize);
+db.Plant            = require('./plants.model')(sequelize, Sequelize);
+db.PlantCare        = require('./plantsCare.model')(sequelize, Sequelize);
+db.PlantType        = require('./plantsTypes.model')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

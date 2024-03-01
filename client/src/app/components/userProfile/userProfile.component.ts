@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { animate, style, transition, trigger } from "@angular/animations";
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { AppConsts } from "src/app/util/Consts";
@@ -42,13 +43,20 @@ export class UserProfile implements OnInit {
     private toastr: ToastrService,
     private appStorage: AppStorage,
     private request: MakeRequest,
-    private uiHelpers: UiHelpers
+    private uiHelpers: UiHelpers,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.user = this.appStorage.getUser();
     if (!this.user) {
       this.toastr.error('User not found!');
+      this.router.navigate(['/app-login']);
+    }
+
+    if (this.user.userType !== 'User') {
+      this.toastr.error('You do not have access to this page!');
+      this.router.navigate(['/app-login']);
     }
 
     this.userInfo.firstName = this.user.firstName;
@@ -106,6 +114,10 @@ export class UserProfile implements OnInit {
       reader.readAsDataURL(file);
       this.userAvatar = file;
     }
+  }
+
+  handleSelectTab(tabName: string): void {
+    this.currentTab = tabName;
   }
 
   /* <============================ REQUESTS ==============================> */

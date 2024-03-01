@@ -30,7 +30,9 @@
           <header class="slds-media slds-media_center slds-has-flexi-truncate">
             <div class="card__header">
               <h2 class="slds-card__header-title">
-                <span>{{ plant.name }}</span>
+                <div style="width:200px">
+                  <span class="slds-trancate">{{ plant.name }}</span>
+                </div>
               </h2>
               <div>
                 <button
@@ -105,7 +107,7 @@
             <div class="file-selector__container slds-m-bottom_small">
               <div class="plant-picture">
                 <img *ngIf="currentPlantData.imageUrl" [src]="currentPlantData.imageUrl">
-                <i *ngIf="!currentPlantData.imageUrl" class="fa-regular fa-image plant-picture__icon"></i>
+                <i *ngIf="!currentPlantData.imageUrl" class="fa-solid fa-circle-notch plant-picture__icon"></i>
               </div>
               <div class="slds-form-element ">
                 <div class="slds-form-element__control">
@@ -254,7 +256,7 @@
           <div class="modal__content-container" *ngIf="plantModalState === 'View'">
             <div class="plant-picture plant-picture_large plant-picture_float">
               <img *ngIf="currentPlantData.imageUrl" [src]="currentPlantData.imageUrl">
-              <i *ngIf="!currentPlantData.imageUrl" class="fa-regular fa-image"></i>
+              <i *ngIf="!currentPlantData.imageUrl" class="fa-solid fa-circle-notch plant-picture__icon"></i>
             </div>
             <div class="view__brief-description">
               <div class="view__name-controls">

@@ -15,4 +15,8 @@ export class AppStorage {
     const user = window.localStorage.getItem('user')
     return user ? JSON.parse(user) : null;
   }
+
+  public removeUser(): void {
+    window.localStorage.removeItem('user')
+  }
 }

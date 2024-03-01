@@ -1,0 +1,37 @@
+<section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+  <div class="slds-modal__container">
+    <div class="slds-modal__header">
+      <h1 class="slds-modal__title slds-hyphenate">Database Backups</h1>
+    </div>
+    <div class="slds-modal__content slds-p-around_small">
+      <div class="backup__container">
+        <div class="backup-button__container">
+            <button
+              class="slds-button slds-button_icon slds-button_icon-border button_icon-small-border button-backup"
+              (click)="handleCreateBackup()"
+            >
+              Create Database backup
+            </button>
+        </div>
+
+        <div>
+          <div class="slds-text-heading_small slds-p-bottom_x-small">Existing backups:</div>
+          <div class="backups__container">
+            <div *ngFor="let backup of dbBackups">
+              <span class="slds-text-font_monospace">
+                <a href="{{ downloadBackupLink + '?fileName=' + backup }}">{{ backup }}</a>
+              </span>
+            </div>
+            <div *ngIf="dbBackups.length === 0">
+              No backups found
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slds-modal__footer">
+      <button class="slds-button slds-button_neutral" (click)="handleBackupClose()">Close</button>
+    </div>
+  </div>
+</section>
+<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>

@@ -1,0 +1,49 @@
+<section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+  <div class="slds-modal__container">
+    <div class="slds-modal__header">
+      <h1 class="slds-modal__title slds-hyphenate">Database Operations Logs</h1>
+    </div>
+    <div class="slds-modal__content slds-p-around_small">
+      <div class="logs__container">
+        <div *ngFor="let log of logs">
+          <div class="slds-m-bottom_small">
+              <div class="log-operation">
+                <div class="slds-text-title_caps">
+                  <strong>
+                    {{ log.dml }}
+                  </strong> {{ log.dml === 'UPDATE' ? 'on' : log.dml === 'INSERT' ? 'into' : 'from'}}
+                </div>
+                <div class="slds-text-color_success">
+                  <strong>
+                    {{ log.table }}
+                  </strong>
+                </div>
+              </div>
+              <div>
+                at <strong>{{ log.time | date: 'yyyy-mm-dd HH:mm'}}</strong>
+              </div>
+              <div>
+                <ng-container *ngFor="let row of log.affectedRows">
+                  <div *ngIf="row.valueBefore || row.valueAfter">
+                    <strong>
+                      {{ row.column }}
+                    </strong>
+
+                    {{ row.valueBefore }}
+                    <span [ngClass]="{'slds-text-color_error': log.dml === 'DELETE'}">
+                      {{ log.dml !== 'DELETE' ? '→' : 'x' }}
+                    </span>
+                    {{ row.valueAfter }}
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="slds-modal__footer">
+      <button class="slds-button slds-button_neutral" (click)="handleLogsClose()">Close</button>
+    </div>
+  </div>
+</section>
+<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>

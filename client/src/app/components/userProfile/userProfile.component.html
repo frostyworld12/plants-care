@@ -1,5 +1,22 @@
 <div class="user-profile">
   <div class="user-profile__content">
+    <div class="tabs__container slds-text-heading_small">
+      <div
+        class="tab__container_tab"
+        [ngClass]="{'tab__container_tab-selected': currentTab === 'Profile'}"
+        (click)="handleSelectTab('Profile')"
+      >
+        Profile
+      </div>
+      <div
+        class="tab__container_tab"
+        [ngClass]="{'tab__container_tab-selected': currentTab === 'Requests'}"
+        (click)="handleSelectTab('Requests')"
+      >
+        Requests
+      </div>
+    </div>
+
     <div class="tab__container">
       <ng-container *ngIf="currentTab === 'Profile'">
         <div class="profile__container">
@@ -12,7 +29,6 @@
                   src="{{userInfo.imageUrl}}"
                   (error)="handleImageLoadError()"
                 >
-                <i *ngIf="!isUserImageVisible" class="fa-regular fa-user"></i>
               </div>
 
               <ng-container *ngIf="!isProfileEditing">
@@ -100,6 +116,9 @@
 
           </div>
         </div>
+      </ng-container>
+      <ng-container *ngIf="currentTab === 'Requests'">
+        <app-user-requests></app-user-requests>
       </ng-container>
     </div>
   </div>

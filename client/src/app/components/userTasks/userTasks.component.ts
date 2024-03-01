@@ -27,8 +27,11 @@ export class UserTasks implements OnInit {
   tasks: any = {};
 
   selectedTasks: any[] = [];
+  selectedDate: string = '';
 
   isTasksDescrptionOpen: boolean = false;
+
+  isLoading = false;
 
   monthsLabels: any = [
     'January',
@@ -57,7 +60,12 @@ export class UserTasks implements OnInit {
     this.user = this.appStorage.getUser();
 
     if (!this.user) {
-      this.toastr.error('You do not have access to this page');
+      this.toastr.error('User not found!');
+      this.router.navigate(['/app-login']);
+    }
+
+    if (this.user.userType !== 'User') {
+      this.toastr.error('You do not have access to this page!');
       this.router.navigate(['/app-login']);
     }
 
@@ -124,10 +132,6 @@ export class UserTasks implements OnInit {
   }
 
   applyTasksPerDay(): void {
-
-    console.log('month', this.month)
-    console.log('tasks', this.tasks);
-
     for (const week of this.month) {
       for (const day of week) {
         if (this.tasks[day.fullDate]) {
@@ -135,20 +139,20 @@ export class UserTasks implements OnInit {
         }
       }
     }
-
-    console.log('month', this.month)
   }
 
   handleOpenTasksDescription(): void {
     this.isTasksDescrptionOpen = !this.isTasksDescrptionOpen;
+
+    if (!this.isTasksDescrptionOpen) {
+      window.setTimeout(() => this.getUserTasks(), 100);
+    }
   }
 
   handleDayClick(day: any): void {
     if (day.tasks) {
       this.selectedTasks = day.tasks.map((task: any) => task.id);
-
-      console.log(this.selectedTasks);
-
+      this.selectedDate = day.fullDate;
       this.handleOpenTasksDescription();
     }
   }
@@ -160,7 +164,8 @@ export class UserTasks implements OnInit {
   getUserTasks(): void {
     this.request.get(AppConsts.GET_USER_TASKS, {
       startDate: moment(this.startDate).format('YYYY-MM-DD'),
-      endDate: moment(this.endDate).format('YYYY-MM-DD')
+      endDate: moment(this.endDate).format('YYYY-MM-DD'),
+      userId: this.user.id
     })
     .subscribe({
       next: (response) => {
@@ -177,6 +182,7 @@ export class UserTasks implements OnInit {
         }
       },
       error: (error) => {
+        console.log(error);
         this.toastr.warning('Could not get tasks!');
       }
     });

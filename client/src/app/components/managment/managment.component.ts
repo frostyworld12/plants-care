@@ -11,6 +11,12 @@ import { MakeRequest }       from "src/app/services/makeRequest";
 })
 export class Managment implements OnInit {
   user: any = null;
+  tabs: any[] = [
+    'Users',
+    'Managment'
+  ];
+  selectedTab: string = 'Users';
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -20,7 +26,24 @@ export class Managment implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.user = this.appStorage.getUser();
+    if (!this.user) {
+      this.toastr.error('User not found!');
+      this.router.navigate(['/app-login']);
+    }
 
+    if (this.user.userType !== 'Admin') {
+      this.toastr.error('You have no permissions to view this page!');
+      this.router.navigate(['/app-login']);
+    }
+  }
+
+  handleSelectTab(tab: string): void {
+    this.selectedTab = tab;
+  }
+
+  handleLoading(isLoading: boolean): void {
+    this.isLoading = isLoading;
   }
 
   /* <============================ REQUESTS ==============================> */
