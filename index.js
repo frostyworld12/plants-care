@@ -27,6 +27,7 @@ app.use('/tasks' , userTasks);
 //     .catch(e => console.log(e));
 
 const events = [];
+
 app.get('/dbLogs/getEvents', (req, res) => {
   try {
     const result = events.map(event => {
@@ -73,6 +74,6 @@ app.get('/dbLogs/getEvents', (req, res) => {
 
 app.listen(3003, async() => {
   console.log('Server listening on port 3003');
-  await dbManagment.getDbJournal(events);
   // dbManagment.scheduleDatabaseBackup();
+  dbManagment.getDbJournal(events);
 });

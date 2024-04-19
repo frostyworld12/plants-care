@@ -4,7 +4,7 @@ const mysqldump = require('mysqldump');
 const cron = require('cron');
 
 const USERNAME = 'root';
-const PASSWORD = 'SafetyLika07SafetyKlepan';
+const PASSWORD = 'admin';
 const HOST = 'localhost';
 const DATABASE = 'plantscare';
 
@@ -16,19 +16,29 @@ const getDbJournal = async (events) => {
   });
 
   const instance = new MySQLEvents(connection, {
-    startAtEnd: false
+    startAtEnd: false,
+    excludedSchemas: {
+      mysql: true,
+      world: true,
+      sakila: true,
+      jira_schema: true
+    },
   });
+
+  await instance.start();
 
   instance.addTrigger({
     name: DATABASE,
-    expression: 'plantscare.*',
+    expression: `*.${DATABASE}`,
     statement: MySQLEvents.STATEMENTS.ALL,
     onEvent: event => {
+      console.log('DB MANAGMENT', event)
       events.push(event);
     }
   });
 
-  await instance.start();
+  // instance.on(MySQLEvents.EVENTS.CONNECTION_ERROR, console.error);
+  // instance.on(MySQLEvents.EVENTS.ZONGJI_ERROR, console.error);
 }
 
 const createDbBackup = async () => {
